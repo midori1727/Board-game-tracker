@@ -1,0 +1,18 @@
+
+#Button {
+	width: 17em;
+	height: 3em;
+	background: #CFE0F9;
+	border: #CFE0F9 solid 1px;
+	outline: none;
+	color: #283654;
+	border-radius: 1em;
+	margin: 1em 0;
+}
+
+#Button:hover {
+	cursor: pointer;
+	border: 1px solid #283654;
+	background-color: #283654;
+	color: #CFE0F9;
+}

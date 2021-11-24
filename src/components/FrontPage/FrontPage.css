@@ -1,0 +1,13 @@
+h1 {
+	color: #CFE0F9;
+	margin-top: 0px;
+}
+
+.FrontPageButton {
+	display: inline-flex;
+    flex-direction: column;
+}
+
+#FrontButton {
+	margin: 1em 0;
+}
