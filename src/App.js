@@ -2,6 +2,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import FrontPage from './components/FrontPage/FrontPage'
 import CreateNewGame from './components/Create/CreateNewGame';
+import History from './components/History/History'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
 				{/* <Route exact path="/"><FrontPage /></Route> */}
 				
 				<Route path="/create" component={CreateNewGame} />
+				<Route path="/history" component={History} />
 				<Route exact path="/" component={FrontPage} />
 				{/* <Route path="/create"><CreateNewGame /></Route> */}
 			</Switch>

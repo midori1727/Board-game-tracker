@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import Button from '../Button/Button';
+import DefaultButton from '../Button/DefaultButton';
 import './FrontPage.css';
 
 
@@ -8,8 +8,8 @@ const FrontPage = () => {
 		<>
 		<h1>Board Game Tracker</h1>
 		<div className="FrontPageButton">
-			<Link to="/create"><Button ButtonName="Create new game"/></Link>
-			<Link to="/history"><Button ButtonName="History"/></Link>
+			<Link to="/create"><DefaultButton ButtonName="Create new game"/></Link>
+			<Link to="/history"><DefaultButton ButtonName="History"/></Link>
 		</div>
 		</>
 	)
