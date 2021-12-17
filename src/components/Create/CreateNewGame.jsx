@@ -1,39 +1,22 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import './CreateNewGame.css';
 import Header from '../Header/Header';
 import DefaultButton from '../Button/DefaultButton';
-
-import { Form, Input, Button } from 'antd';
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-
-const formItemLayout = {
-	labelCol: {
-	  xs: { span: 24 },
-	  sm: { span: 4 },
-	},
-	wrapperCol: {
-	  xs: { span: 24 },
-	  sm: { span: 20 },
-	},
-};
-
-const formItemLayoutWithOutLabel = {
-wrapperCol: {
-	xs: { span: 24, offset: 0 },
-	sm: { span: 20, offset: 4 },
-},
-};
-
 
 const CreateNewGame = () => {
 
 	const [title, setTitle] = useState('');
 	const [scenario, setScenario] = useState('');
-	const [member, setMember] = useState([]);
+	const [member, setMember] = useState('');
+	const [members, setMembers] = useState([]);
+
+	let history = useHistory();
 
 	const handleChangeTitle = (e) => {
 		console.log(e.target.value)
 		setTitle(e.target.value);
+		console.log(title)
 	}
 
 	const handleChangeScenario = (e) => {
@@ -44,115 +27,80 @@ const CreateNewGame = () => {
 	const handleChangeMember = (e) => {
 		console.log(e.target.value)
 		setMember(e.target.value);
-		console.log(member)
+		// setMember([...member, e.target.value])
 	}
 
+	const addMember = (e) => {
+		e.preventDefault();
+		if(member === '') return
+		setMembers([...members, member]);
+		setMember('');
+	}
 
-	const onFinish = values => {
-		console.log('Received values of form:', values);
-	};
+	const removeMember = (index) => {
+		let newMembersList = [...members]
+		newMembersList.splice(index,1)
+		console.log(newMembersList);
+		setMembers(newMembersList)
+		console.log(members);
+
+		
+		// newMembersList.splice(index,1)
+		// console.log(newMembersList);
+		// setMembers(newMembersList)
+		// console.log(members);
+
+		// const newM = members.splice(index,1)
+		// console.log(newM);
+		// setMembers([...members, newM])
+		// console.log(members);
+
+		// console.log(members);
+		// const newMembersList = [...members].filter((m,mIndex) => mIndex !== index);
+		// setMembers(newMembersList)
+		// console.log(index)
+		
+	}
+	console.log(members);
+
+	const handleSubmit = () => {
+		history.push('/edit');
+	}
 
 	return(
-		<>
-		<header>
+		<div className="createNewGameWrapper">
+		<header className="createNewGameHeader">
 			<Header />
 		</header>
 		<h1>Create New Game</h1>
-		<form>
+		<form className="createNewGameForm">
 			<label>
-				Title:
+				<h2 className="createNewGameH2" >Title:</h2>
 				<input className="inputTitle" type="text" value={title} onChange={handleChangeTitle} />
-				<p>{title}</p>
+				{/* <p>{title}</p> */}
 			</label>
 			<label>
-				Scenario:
-				<input className="inputScenario" type="text" value={scenario} onChange={handleChangeScenario} />
-				<p>{scenario}</p>
+				<h2 className="createNewGameH2" >Scenario:</h2>
+				<input className="inputScenario" type="textarea" value={scenario} onChange={handleChangeScenario} />
+				{/* <p>{scenario}</p> */}
 			</label>
-			{/* <label>
-				Member:
+			<label>
+				<h2 className="createNewGameH2" >Member:</h2>
 				<input type="text" value={member} onChange={handleChangeMember}/>
+				
 			</label>
-			<p>+ Add new member</p> */}
+			{/* <p>{member}</p> */}
+			<button className="addMember"onClick={addMember}>+ Add new member</button>
 
-			<Form name="dynamic_form_item" {...formItemLayoutWithOutLabel} onFinish={onFinish}>
-			<Form.List
-				name="names"
-				// rules={[
-				//   {
-				//     validator: async (_, names) => {
-				//       if (!names || names.length < 2) {
-				//         return Promise.reject(new Error('At least 2 passengers'));
-				//       }
-				//     },
-				//   },
-				// ]}
-			>
-				{(fields, { add, remove }, { errors }) => (
-				<>
-					{fields.map((field, index) => (
-					<Form.Item
-						{...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
-						label={index === 0 ? 'Member' : ''}
-						required={false}
-						key={field.key}
-					>
-					<Form.Item
-					{...field}
-					validateTrigger={['onChange', 'onBlur']}
-					rules={[
-						{
-						required: true,
-						whitespace: true,
-						message: "Please input members's name or delete this field.",
-						},
-					]}
-					noStyle
-					>
-					<Input placeholder="member name" style={{ width: '60%' }} onChange={handleChangeMember}/>
-					</Form.Item>
-						{fields.length > 1 ? (
-						<MinusCircleOutlined
-							className="dynamic-delete-button"
-							onClick={() => remove(field.name)}
-						/>
-						) : null}
-					</Form.Item>
-					))}
-					<Form.Item>
-						<Button
-							type="dashed"
-							onClick={() => add()}
-							style={{ width: '60%' }}
-							icon={<PlusOutlined />}
-						>
-						Add member
-						</Button>
-					{/* <Button
-						type="dashed"
-						onClick={() => {
-						add('The head item', 0);
-						}}
-						style={{ width: '60%', marginTop: '20px' }}
-						icon={<PlusOutlined />}
-					>
-						Add field at head
-					</Button> */}
-					<Form.ErrorList errors={errors} />
-					</Form.Item>
-				</>
-				)}
-			</Form.List>
-			{/* <Form.Item>
-				<Button type="primary" htmlType="submit">
-				Submit
-				</Button>
-			</Form.Item> */}
-		</Form>
+			<ul className="membersList">
+				{ members.map((m, index) => (
+				<li key={ index }>{m}<button className="removeButton" onClick={ () => removeMember(index)}>Remove</button></li>
+				))}
+			</ul>
 
-			<DefaultButton ButtonName="ADD"/>
+			<DefaultButton ButtonName="ADD GAME" onClick={handleSubmit}/>
 		</form>
-		</>
+		</div>
 	)
 };
 
