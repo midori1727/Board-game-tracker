@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import './CreateNewGame.css';
 import Header from '../Header/Header';
 import DefaultButton from '../Button/DefaultButton';
+import History from '../History/History';
+
 
 const CreateNewGame = () => {
 
@@ -10,9 +12,12 @@ const CreateNewGame = () => {
 	const [scenario, setScenario] = useState('');
 	const [member, setMember] = useState('');
 	const [points, setPoints] = useState('');
-	const [data, setData] = useState([]);
+	const [memberAndPoints, setMemberAndPoints] = useState([]);
 	const [time, setTime] = useState('');
 	const [comment, setComment] = useState('');
+	const [gameData, setGameData] = useState([]);
+	const [showCreateNewGame, setShowCreateNewGame]	= useState(true);
+	const [showHistory, setShowHistory]	= useState(false);
 
 	let history = useHistory();
 
@@ -50,27 +55,38 @@ const CreateNewGame = () => {
 	const addMember = (e) => {
 		e.preventDefault();
 		if(member === '' || points === '') return
-		setData([...data, { name: member, points: points}]);
+		setMemberAndPoints([...memberAndPoints, { 'name': member, 'points': points}]);
 		setMember('');
+		setPoints('');
 	}
 
 	const removeMember = (index) => {
-		let newDataList = [...data]
+		let newDataList = [...memberAndPoints]
 		newDataList.splice(index,1)
 		console.log(newDataList);
-		setData(newDataList)
+		setMemberAndPoints(newDataList)
 	}
 
-	const handleSubmit = () => {
-		// if(member === '' || points === '') return
-		history.push('/history');
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		setGameData([...gameData,{'title': title, 'scenario': scenario, 'memberAndPoints': memberAndPoints, 'time': time, 'comment': comment} ]);
+		setTitle('');
+		setScenario('');
+		setMemberAndPoints('');
+		setTime('');
+		setComment('');
+		setShowHistory(true);
+		setShowCreateNewGame(false);
 	}
 
-	console.log(title,scenario,data);
+	console.log(title,scenario,memberAndPoints,time,comment);
+	console.log(gameData)
 
 
 
 	return(
+		<>
+		{showCreateNewGame &&
 		<div className="createNewGameWrapper">
 		<header className="createNewGameHeader">
 			<Header />
@@ -99,13 +115,15 @@ const CreateNewGame = () => {
 
 			<button className="addMember"onClick={addMember}>+ Add new member</button>
 
+			{memberAndPoints &&
 			<ul>
-				{data.map((item, index) => (
+				{memberAndPoints.map((item, index) => (
 					<div key={index}>
 					{item.name},{item.points}<button className="removeButton" onClick={ () => removeMember(index)}>Remove</button>
 					</div>
 				))}
 			</ul>
+			}
 
 			<label>
 				<h2 className="createNewGameH2" >Total time:</h2>
@@ -118,9 +136,17 @@ const CreateNewGame = () => {
 			</label>
 
 
-			<DefaultButton ButtonName="ADD GAME" onClick={handleSubmit} />
+			{/* <DefaultButton ButtonName="ADD GAME" onClick={handleSubmit} /> */}
+			<Link to="/history"><DefaultButton ButtonName="ADD GAME" onClick={handleSubmit} /></Link>
+			
 		</form>
 		</div>
+		}
+
+		{showHistory &&
+			<History gameData={gameData}/>
+		}
+		</>
 	)
 };
 
