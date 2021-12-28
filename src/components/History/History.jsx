@@ -1,16 +1,28 @@
 import './History.css';
 import Header from '../Header/Header';
+import { useEffect, useState } from 'react';
 
 const History = (props) => {
 	
 	console.log('props:' ,props.gameData)
+
+	const [gameDataList, setGameDataList] =useState([]);
+
+	useEffect(() => {
+		console.log('hej')
+		setGameDataList(props.gameData)
+		
+	},[])
+
+	console.log(gameDataList);
+
 	return (
 		<>
 		<header>
 			<Header />
 		</header>
 		<h1>History</h1>
-		<ul>
+		{/* <ul>
 				{props.gameData.map((game, index) => (
 					<div key={index}>
 					<h2>{game.title}</h2>
@@ -25,7 +37,7 @@ const History = (props) => {
 					<p>{game.comment}</p>
 					</div>
 				))}
-			</ul>
+			</ul> */}
 		</>
 	)
 };

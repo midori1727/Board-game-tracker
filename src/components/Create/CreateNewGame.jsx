@@ -8,6 +8,7 @@ import History from '../History/History';
 
 const CreateNewGame = () => {
 
+	const [gameData, setGameData] = useState({});
 	const [title, setTitle] = useState('');
 	const [scenario, setScenario] = useState('');
 	const [member, setMember] = useState('');
@@ -15,7 +16,6 @@ const CreateNewGame = () => {
 	const [memberAndPoints, setMemberAndPoints] = useState([]);
 	const [time, setTime] = useState('');
 	const [comment, setComment] = useState('');
-	const [gameData, setGameData] = useState([]);
 	const [showCreateNewGame, setShowCreateNewGame]	= useState(true);
 	const [showHistory, setShowHistory]	= useState(false);
 
@@ -69,7 +69,8 @@ const CreateNewGame = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		setGameData([...gameData,{'title': title, 'scenario': scenario, 'memberAndPoints': memberAndPoints, 'time': time, 'comment': comment} ]);
+		// setGameData([...gameData,{'title': title, 'scenario': scenario, 'memberAndPoints': memberAndPoints, 'time': time, 'comment': comment} ]);
+		setGameData({'title': title, 'scenario': scenario, 'memberAndPoints': memberAndPoints, 'time': time, 'comment': comment});
 		setTitle('');
 		setScenario('');
 		setMemberAndPoints('');
