@@ -10,10 +10,11 @@ import History from './components/History/History';
 // function App(props) {
 // 	const {gameListAddAction,gameListRemoveAction} = props;
 function App() {
-	const dispatch = useDispatch();
-	const selector = useSelector( (state) => state);
+	// const dispatch = useDispatch();
+	// const selector = useSelector( (state) => state);
 
-	console.log(selector)
+	// console.log(selector)
+
 	
 	return (
 		<Router>

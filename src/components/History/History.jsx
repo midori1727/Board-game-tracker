@@ -1,20 +1,33 @@
 import './History.css';
 import Header from '../Header/Header';
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
+// import Store from '../../redux/store/index';
+import {connect, useDispatch, useSelector} from 'react-redux';
+import {gameListAddAction,gameListRemoveAction} from '../../redux/actions'
 
-const History = (props) => {
+
+const History = (
+	props
+	// {gameList}
+	) => {
 	
-	console.log('props:' ,props.gameData)
+	// console.log('props:' ,props.gameData)
 
-	const [gameDataList, setGameDataList] =useState([]);
+	// const [gameDataList, setGameDataList] =useState([]);
 
-	useEffect(() => {
-		console.log('hej')
-		setGameDataList(props.gameData)
+	// useEffect(() => {
+	// 	console.log('hej')
+	// 	setGameDataList(props.gameData)
 		
-	},[])
+	// },[])
 
-	console.log(gameDataList);
+	// console.log(gameDataList);
+
+	const {gameListAddAction,gameListRemoveAction} = props;
+	const dispatch = useDispatch();
+	const selector = useSelector( (state) => state);
+
+	console.log(selector)
 
 	return (
 		<>
@@ -22,6 +35,8 @@ const History = (props) => {
 			<Header />
 		</header>
 		<h1>History</h1>
+		{/* <p>{gameList}</p> */}
+		{/* <p>{Store.getState().gameDataLists}</p> */}
 		{/* <ul>
 				{props.gameData.map((game, index) => (
 					<div key={index}>
@@ -42,4 +57,11 @@ const History = (props) => {
 	)
 };
 
+// const mapStateToProps = (state) => {
+// 	return  {
+// 		gameList: state.gameList
+// 	}
+// }
+
+// export default connect(mapStateToProps, {gameListAddAction,gameListRemoveAction})(History);
 export default History;

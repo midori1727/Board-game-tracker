@@ -1,16 +1,32 @@
 import {GAME_LIST_ADD, GAME_LIST_REMOVE} from './types';
 
 
-export const gameListAddAction = () => {
+// export const gameListAddAction = () => {
+// 	return {
+// 		type: "GAME_LIST_ADD",
+// 		payload: {
+// 			id: '',
+// 			title: '',
+// 			scenario: '',
+// 			members: {member: '', points: ''},
+// 			time: '',
+// 			comment: ''
+// 		}
+// 	}
+// };
+
+
+export const gameListAddAction = (gameData) => {
 	return {
 		type: "GAME_LIST_ADD",
 		payload: {
 			id: '',
-			title: '',
-			scenario: '',
-			members: {member: '', points: ''},
-			time: '',
-			comment: ''
+			title: gameData.title,
+			scenario: gameData.scenario,
+			// members: {member: gameData.member, points: gameData.points},
+			memberAndPoints: gameData.memberAndPoints,
+			time: gameData.time,
+			comment: gameData.comment
 		}
 	}
 };

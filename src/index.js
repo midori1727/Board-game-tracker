@@ -4,10 +4,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import {createStore} from 'redux';
+
+import Store from './redux/store/index';
+// import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import reducer from './redux/reducers'
-const Store = createStore(reducer);
+// const Store = createStore(reducer);
 
 
 ReactDOM.render(

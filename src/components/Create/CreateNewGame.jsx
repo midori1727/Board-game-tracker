@@ -5,10 +5,17 @@ import Header from '../Header/Header';
 import DefaultButton from '../Button/DefaultButton';
 import History from '../History/History';
 
+import { useDispatch} from 'react-redux';
+import {gameListAddAction,gameListRemoveAction} from '../../redux/actions/index'
+
 
 const CreateNewGame = () => {
 
+	const dispatch = useDispatch();
+
+
 	const [gameData, setGameData] = useState({});
+	// const [gameData, setGameData] = useState([]);
 	const [title, setTitle] = useState('');
 	const [scenario, setScenario] = useState('');
 	const [member, setMember] = useState('');
@@ -70,6 +77,7 @@ const CreateNewGame = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		// setGameData([...gameData,{'title': title, 'scenario': scenario, 'memberAndPoints': memberAndPoints, 'time': time, 'comment': comment} ]);
+		// setGameData(...gameData,{'title': title, 'scenario': scenario, 'memberAndPoints': memberAndPoints, 'time': time, 'comment': comment});
 		setGameData({'title': title, 'scenario': scenario, 'memberAndPoints': memberAndPoints, 'time': time, 'comment': comment});
 		setTitle('');
 		setScenario('');
@@ -78,6 +86,17 @@ const CreateNewGame = () => {
 		setComment('');
 		setShowHistory(true);
 		setShowCreateNewGame(false);
+
+		dispatch(gameListAddAction( {
+			title: title,
+			scenario: scenario,
+			memberAndPoints: memberAndPoints,
+			time: time,
+			comment: comment
+
+			
+		}))
+		
 	}
 
 	console.log(title,scenario,memberAndPoints,time,comment);
