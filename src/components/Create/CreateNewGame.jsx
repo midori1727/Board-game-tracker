@@ -29,33 +29,26 @@ const CreateNewGame = () => {
 	let history = useHistory();
 
 	const handleChangeTitle = (e) => {
-		console.log(e.target.value)
 		setTitle(e.target.value);
-		console.log(title)
 	}
 
 	const handleChangeScenario = (e) => {
-		console.log(e.target.value)
 		setScenario(e.target.value);
 	}
 
 	const handleChangeMember = (e) => {
-		console.log(e.target.value)
 		setMember(e.target.value);
 	}
 
 	const handleChangePoints = (e) => {
-		console.log(e.target.value)
 		setPoints(e.target.value);
 	}
 
 	const handleChangeTime = (e) => {
-		console.log(e.target.value)
 		setTime(e.target.value);
 	}
 
 	const handleChangeComment  = (e) => {
-		console.log(e.target.value)
 		setComment(e.target.value);
 	}
 
@@ -93,8 +86,6 @@ const CreateNewGame = () => {
 			memberAndPoints: memberAndPoints,
 			time: time,
 			comment: comment
-
-			
 		}))
 		
 	}

@@ -13,11 +13,9 @@ import reducer from './redux/reducers'
 
 
 ReactDOM.render(
-//   <React.StrictMode>
-	    <Provider store={Store}>
-   			<App />
-		</Provider>,
-//   </React.StrictMode>,
+	<Provider store={Store}>
+		<App />
+	</Provider>,
   document.getElementById('root')
 );
 

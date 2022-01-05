@@ -26,8 +26,9 @@ const History = (
 	const {gameListAddAction,gameListRemoveAction} = props;
 	const dispatch = useDispatch();
 	const selector = useSelector( (state) => state);
+	const gameLists = selector.gameList;
 
-	console.log(selector)
+	console.log(gameLists)
 
 	return (
 		<>
@@ -35,24 +36,16 @@ const History = (
 			<Header />
 		</header>
 		<h1>History</h1>
-		{/* <p>{gameList}</p> */}
-		{/* <p>{Store.getState().gameDataLists}</p> */}
-		{/* <ul>
-				{props.gameData.map((game, index) => (
-					<div key={index}>
-					<h2>{game.title}</h2>
-					<p>{game.scenario}</p>
-					<p>{game.memberAndPoints.map((m,index) => (
-						<div key={index}>
-							<p>{m.name}</p>
-							<p>{m.points}</p>
-						</div>
-					))}</p>
-					<p>{game.time}</p>
-					<p>{game.comment}</p>
-					</div>
-				))}
-			</ul> */}
+		<div className="gameLists">
+			{gameLists.map((gameList, index) => (
+				<div key={index} className="gameListCard">
+					<h1>{gameList.title}</h1>
+					<p>{gameList.scenario}</p>
+					<p>{gameList.time}</p>
+					<p>{gameList.comment}</p>
+				</div>
+			))}
+      	</div>
 		</>
 	)
 };
