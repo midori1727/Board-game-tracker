@@ -20,7 +20,7 @@ export const gameListAddAction = (gameData) => {
 	return {
 		type: "GAME_LIST_ADD",
 		payload: {
-			id: '',
+			id: gameData.id,
 			title: gameData.title,
 			scenario: gameData.scenario,
 			// members: {member: gameData.member, points: gameData.points},

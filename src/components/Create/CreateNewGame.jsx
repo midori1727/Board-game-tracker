@@ -7,15 +7,19 @@ import History from '../History/History';
 
 import { useDispatch} from 'react-redux';
 import {gameListAddAction,gameListRemoveAction} from '../../redux/actions/index'
+import { v4 as uuidv4 } from 'uuid';
 
 
 const CreateNewGame = () => {
 
 	const dispatch = useDispatch();
-
+	
 
 	const [gameData, setGameData] = useState({});
 	// const [gameData, setGameData] = useState([]);
+	
+
+	const id = uuidv4();
 	const [title, setTitle] = useState('');
 	const [scenario, setScenario] = useState('');
 	const [member, setMember] = useState('');
@@ -71,16 +75,12 @@ const CreateNewGame = () => {
 		e.preventDefault();
 		// setGameData([...gameData,{'title': title, 'scenario': scenario, 'memberAndPoints': memberAndPoints, 'time': time, 'comment': comment} ]);
 		// setGameData(...gameData,{'title': title, 'scenario': scenario, 'memberAndPoints': memberAndPoints, 'time': time, 'comment': comment});
-		setGameData({'title': title, 'scenario': scenario, 'memberAndPoints': memberAndPoints, 'time': time, 'comment': comment});
-		setTitle('');
-		setScenario('');
-		setMemberAndPoints('');
-		setTime('');
-		setComment('');
-		setShowHistory(true);
-		setShowCreateNewGame(false);
+		console.log('id', id,title,scenario,memberAndPoints,time,comment);
+		
+		setGameData({'id': id, 'title': title, 'scenario': scenario, 'memberAndPoints': memberAndPoints, 'time': time, 'comment': comment});
 
 		dispatch(gameListAddAction( {
+			id: id,
 			title: title,
 			scenario: scenario,
 			memberAndPoints: memberAndPoints,
@@ -88,13 +88,17 @@ const CreateNewGame = () => {
 			comment: comment
 		}))
 		
+		setTitle('');
+		setScenario('');
+		setMemberAndPoints('');
+		setTime('');
+		setComment('');
+		setShowHistory(true);
+		setShowCreateNewGame(false);
 	}
 
-	console.log(title,scenario,memberAndPoints,time,comment);
-	console.log(gameData)
-
-
-
+	console.log(id,title,scenario,memberAndPoints,time,comment);
+	
 	return(
 		<>
 		{showCreateNewGame &&
