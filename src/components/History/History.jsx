@@ -1,34 +1,21 @@
 import './History.css';
 import Header from '../Header/Header';
-// import { useEffect, useState } from 'react';
-// import Store from '../../redux/store/index';
-import {connect, useDispatch, useSelector} from 'react-redux';
-import {gameListAddAction,gameListRemoveAction} from '../../redux/actions'
+import {useSelector} from 'react-redux';
+import {useHistory} from 'react-router-dom';
 
 
-const History = (
-	props
-	// {gameList}
-	) => {
-	
-	// console.log('props:' ,props.gameData)
 
-	// const [gameDataList, setGameDataList] =useState([]);
+const History = () => {
 
-	// useEffect(() => {
-	// 	console.log('hej')
-	// 	setGameDataList(props.gameData)
-		
-	// },[])
-
-	// console.log(gameDataList);
-
-	const {gameListAddAction,gameListRemoveAction} = props;
-	const dispatch = useDispatch();
 	const selector = useSelector( (state) => state);
 	const gameLists = selector.gameList;
+	const history = useHistory()
+	
 
-	console.log(gameLists)
+	const handleClick = (id) => {
+		console.log(id)
+		history.push('/history/'+id)
+	}
 
 	return (
 		<>
@@ -36,9 +23,10 @@ const History = (
 			<Header />
 		</header>
 		<h1>History</h1>
+		
 		<div className="gameLists">
-			{gameLists.map((gameList, index) => (
-				<div key={index} className="gameListCard">
+			{gameLists.map((gameList) => (
+				<div key={gameList.id} className="gameListCard" onClick={()=>handleClick(gameList.id)}>
 					<h1>{gameList.title}</h1>
 					<p>{gameList.scenario}</p>
 					<p>{gameList.time}</p>
@@ -50,11 +38,7 @@ const History = (
 	)
 };
 
-// const mapStateToProps = (state) => {
-// 	return  {
-// 		gameList: state.gameList
-// 	}
-// }
 
 // export default connect(mapStateToProps, {gameListAddAction,gameListRemoveAction})(History);
 export default History;
+// export default connect(mapStateToProps)(History);

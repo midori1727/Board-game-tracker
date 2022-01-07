@@ -3,7 +3,6 @@ import { useHistory, Link } from 'react-router-dom';
 import './CreateNewGame.css';
 import Header from '../Header/Header';
 import DefaultButton from '../Button/DefaultButton';
-import History from '../History/History';
 
 import { useDispatch} from 'react-redux';
 import {gameListAddAction,gameListRemoveAction} from '../../redux/actions/index'
@@ -13,12 +12,9 @@ import { v4 as uuidv4 } from 'uuid';
 const CreateNewGame = () => {
 
 	const dispatch = useDispatch();
-	
+	let history = useHistory();
 
 	const [gameData, setGameData] = useState({});
-	// const [gameData, setGameData] = useState([]);
-	
-
 	const id = uuidv4();
 	const [title, setTitle] = useState('');
 	const [scenario, setScenario] = useState('');
@@ -27,10 +23,7 @@ const CreateNewGame = () => {
 	const [memberAndPoints, setMemberAndPoints] = useState([]);
 	const [time, setTime] = useState('');
 	const [comment, setComment] = useState('');
-	const [showCreateNewGame, setShowCreateNewGame]	= useState(true);
-	const [showHistory, setShowHistory]	= useState(false);
-
-	let history = useHistory();
+	
 
 	const handleChangeTitle = (e) => {
 		setTitle(e.target.value);
@@ -73,10 +66,6 @@ const CreateNewGame = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		// setGameData([...gameData,{'title': title, 'scenario': scenario, 'memberAndPoints': memberAndPoints, 'time': time, 'comment': comment} ]);
-		// setGameData(...gameData,{'title': title, 'scenario': scenario, 'memberAndPoints': memberAndPoints, 'time': time, 'comment': comment});
-		console.log('id', id,title,scenario,memberAndPoints,time,comment);
-		
 		setGameData({'id': id, 'title': title, 'scenario': scenario, 'memberAndPoints': memberAndPoints, 'time': time, 'comment': comment});
 
 		dispatch(gameListAddAction( {
@@ -86,22 +75,21 @@ const CreateNewGame = () => {
 			memberAndPoints: memberAndPoints,
 			time: time,
 			comment: comment
-		}))
+		}));
 		
 		setTitle('');
 		setScenario('');
 		setMemberAndPoints('');
 		setTime('');
 		setComment('');
-		setShowHistory(true);
-		setShowCreateNewGame(false);
+		history.push('/history');
+		
 	}
 
-	console.log(id,title,scenario,memberAndPoints,time,comment);
 	
 	return(
 		<>
-		{showCreateNewGame &&
+		
 		<div className="createNewGameWrapper">
 		<header className="createNewGameHeader">
 			<Header />
@@ -150,17 +138,11 @@ const CreateNewGame = () => {
 				<input className="inputComment" type="textarea" value={comment} onChange={handleChangeComment}　required />
 			</label>
 
-
-			{/* <DefaultButton ButtonName="ADD GAME" onClick={handleSubmit} /> */}
 			<Link to="/history"><DefaultButton ButtonName="ADD GAME" onClick={handleSubmit} /></Link>
 			
 		</form>
 		</div>
-		}
-
-		{showHistory &&
-			<History gameData={gameData}/>
-		}
+		
 		</>
 	)
 };
