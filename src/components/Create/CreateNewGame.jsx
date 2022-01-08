@@ -5,14 +5,14 @@ import Header from '../Header/Header';
 import DefaultButton from '../Button/DefaultButton';
 
 import { useDispatch} from 'react-redux';
-import {gameListAddAction,gameListRemoveAction} from '../../redux/actions/index'
+import {gameListAddAction} from '../../redux/actions/index'
 import { v4 as uuidv4 } from 'uuid';
 
 
 const CreateNewGame = () => {
 
 	const dispatch = useDispatch();
-	let history = useHistory();
+	const history = useHistory();
 
 	const [gameData, setGameData] = useState({});
 	const id = uuidv4();

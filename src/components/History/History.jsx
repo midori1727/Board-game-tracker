@@ -8,14 +8,15 @@ import {useHistory} from 'react-router-dom';
 const History = () => {
 
 	const selector = useSelector( (state) => state);
-	const gameLists = selector.gameList;
+	const gameLists = selector.gameList.gameLists;
 	const history = useHistory()
 	
-
 	const handleClick = (id) => {
 		console.log(id)
 		history.push('/history/'+id)
 	}
+
+	console.log(gameLists)
 
 	return (
 		<>

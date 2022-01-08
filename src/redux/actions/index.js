@@ -14,16 +14,11 @@ export const gameListAddAction = (gameData) => {
 	}
 };
 
-export const gameListRemoveAction = (id) => {
+export const gameListRemoveAction = (gameData) => {
 	return {
 		type: "GAME_LIST_REMOVE",
 		payload: {
-			id,
-			title: '',
-			scenario: '',
-			members: {member: '', points: ''},
-			time: '',
-			comment: ''
+			id: gameData.id
 		}
 	}
 };
