@@ -3,8 +3,6 @@ import Header from '../Header/Header';
 import {useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 
-
-
 const History = () => {
 
 	const selector = useSelector( (state) => state);
@@ -23,15 +21,14 @@ const History = () => {
 		<header>
 			<Header />
 		</header>
-		<h1>History</h1>
+		<h1 className="title">History</h1>
 		
 		<div className="gameLists">
 			{gameLists.map((gameList) => (
 				<div key={gameList.id} className="gameListCard" onClick={()=>handleClick(gameList.id)}>
 					<h1>{gameList.title}</h1>
 					<p>{gameList.scenario}</p>
-					<p>{gameList.time}</p>
-					<p>{gameList.comment}</p>
+					<p>Created: {gameList.createdDate}</p>
 				</div>
 			))}
       	</div>

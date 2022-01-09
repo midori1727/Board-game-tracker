@@ -1,0 +1,25 @@
+h1.title {
+	color: #CFE0F9;
+}
+
+.game h1, p {
+	color: white;
+}
+
+.gameMemberAndPoints {
+	text-align: left;
+}
+
+.gameMemberAndPoints p{
+	display: inline;
+	padding-right: 0.7em;
+}
+
+.gameTotalTime {
+	text-align: left;
+}
+
+.gameComment {
+	text-align: left;
+}
+

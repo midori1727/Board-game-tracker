@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import './CreateNewGame.css';
 import Header from '../Header/Header';
 import DefaultButton from '../Button/DefaultButton';
@@ -14,7 +14,7 @@ const CreateNewGame = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 
-	const [gameData, setGameData] = useState({});
+	// const [gameData, setGameData] = useState({});
 	const id = uuidv4();
 	const [title, setTitle] = useState('');
 	const [scenario, setScenario] = useState('');
@@ -23,6 +23,7 @@ const CreateNewGame = () => {
 	const [memberAndPoints, setMemberAndPoints] = useState([]);
 	const [time, setTime] = useState('');
 	const [comment, setComment] = useState('');
+	const [created, setCreated] = useState('')
 	
 
 	const handleChangeTitle = (e) => {
@@ -52,6 +53,7 @@ const CreateNewGame = () => {
 	const addMember = (e) => {
 		e.preventDefault();
 		if(member === '' || points === '') return
+		if(points.match(/[^0-9]+/)) return
 		setMemberAndPoints([...memberAndPoints, { 'name': member, 'points': points}]);
 		setMember('');
 		setPoints('');
@@ -64,9 +66,16 @@ const CreateNewGame = () => {
 		setMemberAndPoints(newDataList)
 	}
 
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		setGameData({'id': id, 'title': title, 'scenario': scenario, 'memberAndPoints': memberAndPoints, 'time': time, 'comment': comment});
+
+		const now = new Date();
+		const createdDate = now.toLocaleString();
+		
+		// setGameData({'id': id, 'title': title, 'scenario': scenario, 'memberAndPoints': memberAndPoints, 'time': time, 'comment': comment, 'created': created});
+
+		if(title === '' || scenario === '' || memberAndPoints.length === 0 || time === '' || comment === '') return;
 
 		dispatch(gameListAddAction( {
 			id: id,
@@ -74,14 +83,15 @@ const CreateNewGame = () => {
 			scenario: scenario,
 			memberAndPoints: memberAndPoints,
 			time: time,
-			comment: comment
+			comment: comment,
+			createdDate: createdDate
 		}));
 		
-		setTitle('');
-		setScenario('');
-		setMemberAndPoints('');
-		setTime('');
-		setComment('');
+		// setTitle('');
+		// setScenario('');
+		// setMemberAndPoints('');
+		// setTime('');
+		// setComment('');
 		history.push('/history');
 		
 	}
@@ -94,7 +104,7 @@ const CreateNewGame = () => {
 		<header className="createNewGameHeader">
 			<Header />
 		</header>
-		<h1>Create New Game</h1>
+		<h1 className="title">Create New Game</h1>
 		<form className="createNewGameForm">
 			<label>
 				<h2 className="createNewGameH2" >Title:</h2>
@@ -103,7 +113,7 @@ const CreateNewGame = () => {
 
 			<label>
 				<h2 className="createNewGameH2" >Scenario:</h2>
-				<input className="inputScenario" type="textarea" value={scenario} onChange={handleChangeScenario}　required />
+				<input className="inputScenario" type="textarea" value={scenario} onChange={handleChangeScenario} />
 			</label>
 
 			<label>
@@ -130,15 +140,15 @@ const CreateNewGame = () => {
 
 			<label>
 				<h2 className="createNewGameH2" >Total time:</h2>
-				<input type="text" value={time} onChange={handleChangeTime}/>
+				<input type="text" value={time} placeholder="〇〇:〇〇" onChange={handleChangeTime}/>
 			</label>
 
 			<label>
 				<h2 className="createNewGameH2" >Comment:</h2>
 				<input className="inputComment" type="textarea" value={comment} onChange={handleChangeComment}　required />
 			</label>
-
-			<Link to="/history"><DefaultButton ButtonName="ADD GAME" onClick={handleSubmit} /></Link>
+			
+			<DefaultButton ButtonName="ADD GAME" onClick={handleSubmit} />
 			
 		</form>
 		</div>

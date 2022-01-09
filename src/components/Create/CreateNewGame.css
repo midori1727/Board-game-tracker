@@ -1,4 +1,6 @@
-
+h1.title {
+	color: #CFE0F9;
+}
 
 .createNewGameForm {
 	text-align: left;
@@ -12,6 +14,11 @@
 	color: white;
 	font-size: 1em;
 	margin-right: 3em;
+}
+
+.createNewGameForm ul {
+	color: white;
+	padding-left: 0;
 }
 
 input {

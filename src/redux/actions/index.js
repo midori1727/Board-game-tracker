@@ -9,7 +9,8 @@ export const gameListAddAction = (gameData) => {
 			scenario: gameData.scenario,
 			memberAndPoints: gameData.memberAndPoints,
 			time: gameData.time,
-			comment: gameData.comment
+			comment: gameData.comment,
+			createdDate: gameData.createdDate
 		}
 	}
 };
