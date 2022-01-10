@@ -7,10 +7,6 @@ const initialState = {
 const gameList = (state = initialState, action) => {
 	switch (action.type){
 		case GAME_LIST_ADD:
-			// return [ 
-			// 	...state, 
-			// 	action.payload 
-			// ]
 			return {
                 ...state,
                 gameLists: [...state.gameLists, action.payload]
@@ -21,6 +17,12 @@ const gameList = (state = initialState, action) => {
 			return {
 				gameLists: newState
             }
+
+		case GAME_LIST_EDIT:
+			const newState = state.gameLists.map(game => game.id === action.payload.id ? action.payload : game);
+			return {
+				gameLists: newState
+			}
 		
 		default:
 			return state

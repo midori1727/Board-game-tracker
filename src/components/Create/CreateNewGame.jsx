@@ -23,7 +23,7 @@ const CreateNewGame = () => {
 	const [memberAndPoints, setMemberAndPoints] = useState([]);
 	const [time, setTime] = useState('');
 	const [comment, setComment] = useState('');
-	const [created, setCreated] = useState('')
+	// const [created, setCreated] = useState('')
 	
 
 	const handleChangeTitle = (e) => {
