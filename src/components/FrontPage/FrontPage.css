@@ -3,9 +3,13 @@ h1.title {
 	margin-top: 0px;
 }
 
+h1.frontTitle {
+	padding-top: 30vh;
+}
+
 .FrontPageButton {
 	display: inline-flex;
-    flex-direction: column;
+    flex-direction: column;	
 }
 
 #FrontButton {

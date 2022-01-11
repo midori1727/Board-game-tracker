@@ -1,6 +1,7 @@
 header {
-	/* display: flex; */
-
+	display: flex;
+	padding-top: 1em;
+	padding-left: 0.5em;
 }
 
 a {

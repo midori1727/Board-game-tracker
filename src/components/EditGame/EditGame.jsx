@@ -49,7 +49,8 @@ const EditGame = () => {
 		let pointsAndMembersArray = [...memberAndPoints];
 		let editIndexPoints =  pointsAndMembersArray[index].points;
 		editIndexPoints = e.target.value;
-		pointsAndMembersArray[index].points = editIndexPoints ;
+		pointsAndMembersArray[index].points = editIndexPoints;
+		if(editIndexPoints.match(/[^0-9]+/)) return
 		setMemberAndPoints(pointsAndMembersArray);
 	};
 
@@ -86,7 +87,7 @@ const EditGame = () => {
 			<Header />
 		</header>
 		<h1 className="title">Edit Game</h1>
-		<div className="editGameWrapper">
+		<div className="editGameForm">
 			{selectedHistory.map((gameList) => (
 				<div key={gameList.id} >
 					<label>
@@ -98,16 +99,18 @@ const EditGame = () => {
 						<input value={scenario} onChange={handleChangeScenario}/>
 					</label>
 					<h2 className="editGameH2">Members:</h2>
+					<ul>
 					{gameList.memberAndPoints.map((memberAndPoint,index) => (
-						<div  key={index} >
+						<div key={index} >
 							{memberAndPoint.name}
 							{memberAndPoints.length >= 1 && 
 							<>
-							<input value={memberAndPoints[index].points}  onChange={(e) => handleChangePoints(e,index)} />Points
+							<input value={memberAndPoints[index].points}  onChange={(e) => handleChangePoints(e,index)} /> Points
 							</>
 							}
 						</div>	
 					))}
+					</ul>
 					<label>
 						<h2 className="editGameH2">Total Time:</h2>
 						<input value={time} onChange={handleChangeTime}/>

@@ -5,9 +5,10 @@
   background: rgb(34,86,195);
   background: linear-gradient(0deg, rgba(34,86,195,1) 1%, rgba(16,75,100,1) 47%, rgba(6,8,45,0.9640231092436975) 95%);
   min-height: 100vh;
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
+  font-size: 1.2em;
 
 }
 

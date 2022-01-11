@@ -11,16 +11,15 @@ function App() {
 	return (
 		<Router>
 			<div className="App">
-			<main className="App-main">
+			{/* <main className="App-main"> */}
 				<Switch>
 					<Route path="/create" component={CreateNewGame} />
 					<Route path="/edit/:id" component={EditGame} />
-					{/* <Route path="/edit" component={EditGame} /> */}
 					<Route path="/history/:id" component={SingleHistory} />
 					<Route path="/history" component={History} />
 					<Route exact path="/" component={FrontPage} />
 				</Switch>
-			</main>
+			{/* </main> */}
 			</div>
 		</Router>
     );

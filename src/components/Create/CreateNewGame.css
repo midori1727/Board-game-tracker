@@ -1,13 +1,16 @@
+.createNewGameWrapper {
+	display: flex;
+	justify-content: center;
+}
+
+
 h1.title {
 	color: #CFE0F9;
 }
 
 .createNewGameForm {
 	text-align: left;
-}
-
-.createNewGameHeader {
-	display: flex;
+	width: 80vw;
 }
 
 .createNewGameH2 {
@@ -22,6 +25,11 @@ h1.title {
 }
 
 input {
+	height: 3em;
+	outline: none;
+}
+
+textarea {
 	height: 3em;
 	outline: none;
 }
@@ -45,6 +53,11 @@ input:focus {
 	outline: none;
 }
 
+textarea:focus {
+	border-color: rgb(202, 86, 202);
+	outline: none;
+}
+
 .membersList {
 	list-style: none;
 }
@@ -57,23 +70,33 @@ input:focus {
 	margin: 0.5em;
 }
 
-.addMember {
+.addMemberButton {
 	display: block;
     margin-top: 0.5em;
+	color: #CFE0F9;
+	background: transparent;
+	border: transparent;
+	cursor: pointer;
 }
 
 
+.addButton {
+	text-align: center;
+}
+
 
 @media screen and (min-width: 769px){
-	
+	.createNewGameForm {
+		width: 60vw;
+	}
 }
 	
 	
 @media screen and (max-width: 768px){
-	
+
 }
 	
 	
 @media screen and (max-width:640px){
-	
+
 }

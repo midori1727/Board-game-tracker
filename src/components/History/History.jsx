@@ -20,15 +20,17 @@ const History = () => {
 		</header>
 		<h1 className="title">History</h1>
 		
-		<div className="gameLists">
-			{gameLists.map((gameList) => (
-				<div key={gameList.id} className="gameListCard" onClick={()=>handleClick(gameList.id)}>
-					<h1>{gameList.title}</h1>
-					<p>{gameList.scenario}</p>
-					<p>Created: {gameList.createdDate}</p>
-				</div>
-			))}
-      	</div>
+		<div className="gameListsWrapper">
+			<div className="gameLists">
+				{gameLists.map((gameList) => (
+					<div key={gameList.id} className="gameListCard" onClick={()=>handleClick(gameList.id)}>
+						<h1>{gameList.title}</h1>
+						<p >{gameList.scenario}</p>
+						<p>Created: {gameList.createdDate}</p>
+					</div>
+				))}
+			</div>
+		</div>
 		</>
 	)
 };

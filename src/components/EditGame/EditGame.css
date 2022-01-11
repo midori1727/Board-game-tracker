@@ -1,4 +1,4 @@
-.editGameWrapper {
+.editGameForm {
 	text-align: left;
 }
 
@@ -6,3 +6,7 @@
 	color: white;
 }
 
+.editGameForm ul {
+	color: white;
+	padding-left: 0;
+}

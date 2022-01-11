@@ -84,11 +84,12 @@ const CreateNewGame = () => {
 	
 	return(
 		<>
-		<div className="createNewGameWrapper">
-		<header className="createNewGameHeader">
+		{/* <div className="createNewGameWrapper"> */}
+		<header>
 			<Header />
 		</header>
 		<h1 className="title">Create New Game</h1>
+		<div className="createNewGameWrapper">
 		<form className="createNewGameForm">
 			<label>
 				<h2 className="createNewGameH2" >Title:</h2>
@@ -97,7 +98,7 @@ const CreateNewGame = () => {
 
 			<label>
 				<h2 className="createNewGameH2" >Scenario:</h2>
-				<input className="inputScenario" type="textarea" value={scenario} onChange={handleChangeScenario} />
+				<textarea className="inputScenario" value={scenario} onChange={handleChangeScenario} />
 			</label>
 
 			<label>
@@ -110,13 +111,14 @@ const CreateNewGame = () => {
 				<input type="text" value={points} onChange={handleChangePoints}/>
 			</label>
 
-			<button className="addMember"onClick={addMember}>+ Add new member</button>
+			<button className="addMemberButton"onClick={addMember}>+ Add new member</button>
 
 			{memberAndPoints &&
 			<ul>
 				{memberAndPoints.map((item, index) => (
 					<div key={index}>
-					{item.name},{item.points}<button className="removeButton" onClick={ () => removeMember(index)}>Remove</button>
+					{item.name}, {item.points} points
+					<button className="removeButton" onClick={ () => removeMember(index)}>Remove</button>
 					</div>
 				))}
 			</ul>
@@ -129,10 +131,13 @@ const CreateNewGame = () => {
 
 			<label>
 				<h2 className="createNewGameH2" >Comment:</h2>
-				<input className="inputComment" type="textarea" value={comment} onChange={handleChangeComment}　required />
+				<textarea className="inputComment" value={comment} onChange={handleChangeComment}　required />
 			</label>
-			
+			<div className="addButton">
 			<DefaultButton ButtonName="ADD GAME" onClick={handleSubmit} />
+			</div>
+			
+			
 			
 		</form>
 		</div>
