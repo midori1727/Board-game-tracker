@@ -1,8 +1,8 @@
-import {GAME_LIST_ADD, GAME_LIST_REMOVE} from '../actions/types';
+import {GAME_LIST_ADD, GAME_LIST_REMOVE, GAME_LIST_EDIT} from '../actions/types';
 
 const initialState = {
 	gameLists: []
-}
+};
 
 const gameList = (state = initialState, action) => {
 	switch (action.type){
@@ -19,9 +19,9 @@ const gameList = (state = initialState, action) => {
             }
 
 		case GAME_LIST_EDIT:
-			const newState = state.gameLists.map(game => game.id === action.payload.id ? action.payload : game);
+			const newEditState = state.gameLists.map(game => game.id === action.payload.id ? action.payload : game);
 			return {
-				gameLists: newState
+                gameLists: newEditState
 			}
 		
 		default:

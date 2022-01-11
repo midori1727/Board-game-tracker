@@ -1,4 +1,4 @@
-import {GAME_LIST_ADD, GAME_LIST_REMOVE, GAME_LIST_EDIT} from './types';
+// import {GAME_LIST_ADD, GAME_LIST_REMOVE, GAME_LIST_EDIT} from './types';
 
 export const gameListAddAction = (gameData) => {
 	return {
@@ -34,7 +34,6 @@ export const gameListEditAction = (gameData) => {
 			memberAndPoints: gameData.memberAndPoints,
 			time: gameData.time,
 			comment: gameData.comment,
-			createdDate: gameData.createdDate
 		}
 	}
 };

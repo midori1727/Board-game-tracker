@@ -1,7 +1,7 @@
-import './History.css';
-import Header from '../Header/Header';
 import {useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
+import './History.css';
+import Header from '../Header/Header';
 
 const History = () => {
 
@@ -10,11 +10,8 @@ const History = () => {
 	const history = useHistory()
 	
 	const handleClick = (id) => {
-		console.log(id)
 		history.push('/history/'+id)
 	}
-
-	console.log(gameLists)
 
 	return (
 		<>
@@ -36,7 +33,4 @@ const History = () => {
 	)
 };
 
-
-// export default connect(mapStateToProps, {gameListAddAction,gameListRemoveAction})(History);
 export default History;
-// export default connect(mapStateToProps)(History);

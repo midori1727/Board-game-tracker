@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch} from 'react-redux';
+import {gameListAddAction} from '../../redux/actions/index'
 import './CreateNewGame.css';
 import Header from '../Header/Header';
 import DefaultButton from '../Button/DefaultButton';
-
-import { useDispatch} from 'react-redux';
-import {gameListAddAction} from '../../redux/actions/index'
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -13,9 +12,8 @@ const CreateNewGame = () => {
 
 	const dispatch = useDispatch();
 	const history = useHistory();
-
-	// const [gameData, setGameData] = useState({});
 	const id = uuidv4();
+
 	const [title, setTitle] = useState('');
 	const [scenario, setScenario] = useState('');
 	const [member, setMember] = useState('');
@@ -23,32 +21,30 @@ const CreateNewGame = () => {
 	const [memberAndPoints, setMemberAndPoints] = useState([]);
 	const [time, setTime] = useState('');
 	const [comment, setComment] = useState('');
-	// const [created, setCreated] = useState('')
-	
 
 	const handleChangeTitle = (e) => {
 		setTitle(e.target.value);
-	}
+	};
 
 	const handleChangeScenario = (e) => {
 		setScenario(e.target.value);
-	}
+	};
 
 	const handleChangeMember = (e) => {
 		setMember(e.target.value);
-	}
+	};
 
 	const handleChangePoints = (e) => {
 		setPoints(e.target.value);
-	}
+	};
 
 	const handleChangeTime = (e) => {
 		setTime(e.target.value);
-	}
+	};
 
 	const handleChangeComment  = (e) => {
 		setComment(e.target.value);
-	}
+	};
 
 	const addMember = (e) => {
 		e.preventDefault();
@@ -57,23 +53,19 @@ const CreateNewGame = () => {
 		setMemberAndPoints([...memberAndPoints, { 'name': member, 'points': points}]);
 		setMember('');
 		setPoints('');
-	}
+	};
 
 	const removeMember = (index) => {
-		let newDataList = [...memberAndPoints]
-		newDataList.splice(index,1)
-		console.log(newDataList);
-		setMemberAndPoints(newDataList)
-	}
-
+		let newDataList = [...memberAndPoints];
+		newDataList.splice(index,1);
+		setMemberAndPoints(newDataList);
+	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
 		const now = new Date();
 		const createdDate = now.toLocaleString();
-		
-		// setGameData({'id': id, 'title': title, 'scenario': scenario, 'memberAndPoints': memberAndPoints, 'time': time, 'comment': comment, 'created': created});
 
 		if(title === '' || scenario === '' || memberAndPoints.length === 0 || time === '' || comment === '') return;
 
@@ -86,20 +78,12 @@ const CreateNewGame = () => {
 			comment: comment,
 			createdDate: createdDate
 		}));
-		
-		// setTitle('');
-		// setScenario('');
-		// setMemberAndPoints('');
-		// setTime('');
-		// setComment('');
 		history.push('/history');
-		
-	}
+	};
 
 	
 	return(
 		<>
-		
 		<div className="createNewGameWrapper">
 		<header className="createNewGameHeader">
 			<Header />

@@ -1,25 +1,28 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch} from 'react-redux';
+import {useParams, useHistory} from 'react-router-dom';
 import './EditGame.css';
 import Header from '../Header/Header';
-import { useSelector, useDispatch} from 'react-redux';
-import {useParams} from 'react-router-dom';
 import DefaultButton from '../Button/DefaultButton';
+import { gameListEditAction } from '../../redux/actions';
 
 const EditGame = () => {
 
 	const selector = useSelector( (state) => state);
 	const gameLists = selector.gameList.gameLists;
 	const params = useParams();
+	const dispatch = useDispatch();
+	const history = useHistory();
 	const selectedHistory = gameLists.filter(gameList => {
 		return gameList.id === params.id;
-	})
+	});
 
 	const [title, setTitle] = useState('');
 	const [scenario, setScenario] = useState('');
-	const [points, setPoints] = useState([]);
+	const [memberAndPoints, setMemberAndPoints] = useState([]);
 	const [time, setTime] = useState('');
 	const [comment, setComment] = useState('');
-	let newPointsList = [];
+	let newMemberAndPointsList = [];
 
 	useEffect (() => {
 		selectedHistory.map(game => {
@@ -28,8 +31,8 @@ const EditGame = () => {
 			setTime(game.time);
 			setComment(game.comment)
 			game.memberAndPoints.map((memberAndPoint) => {
-				newPointsList = [...newPointsList, memberAndPoint.points]
-				setPoints(newPointsList);
+				newMemberAndPointsList = [...newMemberAndPointsList, { 'name' : memberAndPoint.name, 'points' :memberAndPoint.points}];
+				setMemberAndPoints(newMemberAndPointsList);
 			})	
 		})
 	},[])
@@ -43,28 +46,39 @@ const EditGame = () => {
 	};
 
 	const handleChangePoints = (e,index) => {
-		let pointsArray = [...points];
-		let changeIndex =  pointsArray[index];
-		changeIndex = e.target.value;
-		pointsArray[index] = changeIndex ;
-		setPoints( pointsArray);
+		let pointsAndMembersArray = [...memberAndPoints];
+		let editIndexPoints =  pointsAndMembersArray[index].points;
+		editIndexPoints = e.target.value;
+		pointsAndMembersArray[index].points = editIndexPoints ;
+		setMemberAndPoints(pointsAndMembersArray);
 	};
-
-	console.log(points);
 
 	const handleChangeTime = (e) => {
 		setTime(e.target.value);
-	}
+	};
 
 	const handleChangeComment = (e) => {
 		setComment(e.target.value);
-	}
+	};
 
-	const handleSubmit = () => {
-		
-	}
+	const handleSubmit = (id) => {
 
-	// dispatchの際にインプットが空欄の場合は元々の値にするというif文を入れる事
+		memberAndPoints.map((memberAndPoint) => {
+			if(memberAndPoint.points === '')
+			return 
+		})
+		if(title === '' || scenario === '' || time === '' || comment === '') return;
+
+		dispatch(gameListEditAction( {
+			id: id,
+			title: title,
+			scenario: scenario,
+			memberAndPoints: memberAndPoints,
+			time: time,
+			comment: comment
+		}));
+		history.push('/history');
+	}
 
 	return (
 		<>
@@ -86,16 +100,14 @@ const EditGame = () => {
 					<h2 className="editGameH2">Members:</h2>
 					{gameList.memberAndPoints.map((memberAndPoint,index) => (
 						<div  key={index} >
-								{memberAndPoint.name}
-								
-								<input value={points[index]}  onChange={(e) => handleChangePoints(e,index)} /> points		
-								{/* <input value={memberAndPoint.points}  onChange={(e) => handleChangePoints(e,index)} /> */}
+							{memberAndPoint.name}
+							{memberAndPoints.length >= 1 && 
+							<>
+							<input value={memberAndPoints[index].points}  onChange={(e) => handleChangePoints(e,index)} />Points
+							</>
+							}
 						</div>	
 					))}
-					{/* {pointsList.map((point, index) => (
-						<input key={index} value={point} onChange={(e) => handleChangePoints(e,index)}/>
-					))} */}
-
 					<label>
 						<h2 className="editGameH2">Total Time:</h2>
 						<input value={time} onChange={handleChangeTime}/>
@@ -104,13 +116,13 @@ const EditGame = () => {
 						<h2 className="editGameH2">Comment:</h2>
 						<input value={comment} onChange={handleChangeComment}/>
 					</label>	
+					<DefaultButton ButtonName="SAVE" onClick={() => handleSubmit(gameList.id)} />
 				</div>
 			))}
 
-			<DefaultButton ButtonName="SAVE" onClick={handleSubmit} />
+			
+			
 		</div>
-		
-	
 		</>
 	)
 }

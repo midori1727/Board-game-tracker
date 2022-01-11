@@ -6,6 +6,7 @@ h1.title {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
+	cursor: pointer;
 }
 
 

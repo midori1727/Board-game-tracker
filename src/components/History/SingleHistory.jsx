@@ -24,7 +24,6 @@ const SingleHistory = () => {
 		}));
 		history.push('/')
 	}
-	console.log(gameLists)
 
 	const handleEdit = (id) => {
 		history.push('/edit/'+id)
@@ -49,7 +48,6 @@ const SingleHistory = () => {
 						))}
 						<p className="gameTotalTime">Total Time: {gameList.time}</p>
 						<p className="gameComment">Comment: {gameList.comment}</p>
-						{/* <button onClick={()=> handleRemove(gameList.id)}>Remove</button> */}
 						<DefaultButton ButtonName="REMOVE" onClick={()=> handleRemove(gameList.id)} />
 						<DefaultButton ButtonName="EDIT"onClick={()=> handleEdit(gameList.id)} />
 					</div>
