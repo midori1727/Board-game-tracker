@@ -34,6 +34,7 @@ export const gameListEditAction = (gameData) => {
 			memberAndPoints: gameData.memberAndPoints,
 			time: gameData.time,
 			comment: gameData.comment,
+			createdDate: gameData.createdDate
 		}
 	}
 };

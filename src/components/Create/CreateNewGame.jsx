@@ -18,9 +18,11 @@ const CreateNewGame = () => {
 	const [scenario, setScenario] = useState('');
 	const [member, setMember] = useState('');
 	const [points, setPoints] = useState('');
+	const [color, setColor] = useState('White');
 	const [memberAndPoints, setMemberAndPoints] = useState([]);
 	const [time, setTime] = useState('');
 	const [comment, setComment] = useState('');
+
 
 	const handleChangeTitle = (e) => {
 		setTitle(e.target.value);
@@ -46,11 +48,24 @@ const CreateNewGame = () => {
 		setComment(e.target.value);
 	};
 
+	const handleChangeMemberColor = (e, index) => {
+		let pointsAndMembersArray = [...memberAndPoints];
+		let addColor =  pointsAndMembersArray[index].color;
+		addColor = e.target.value
+		pointsAndMembersArray[index].color = addColor;
+		setMemberAndPoints(pointsAndMembersArray);
+	}
+
+	console.log(color);
+
+	console.log(memberAndPoints);
+
 	const addMember = (e) => {
 		e.preventDefault();
 		if(member === '' || points === '') return
 		if(points.match(/[^0-9]+/)) return
-		setMemberAndPoints([...memberAndPoints, { 'name': member, 'points': points}]);
+		// setMemberAndPoints([...memberAndPoints, { 'name': member, 'points': points}]);
+		setMemberAndPoints([...memberAndPoints, { 'name': member, 'points': points, 'color': color}]);
 		setMember('');
 		setPoints('');
 	};
@@ -69,22 +84,37 @@ const CreateNewGame = () => {
 
 		if(title === '' || scenario === '' || memberAndPoints.length === 0 || time === '' || comment === '') return;
 
-		dispatch(gameListAddAction( {
-			id: id,
-			title: title,
-			scenario: scenario,
-			memberAndPoints: memberAndPoints,
-			time: time,
-			comment: comment,
-			createdDate: createdDate
-		}));
+		if(member && points){
+			dispatch(gameListAddAction( {
+				id: id,
+				title: title,
+				scenario: scenario,
+				memberAndPoints: [...memberAndPoints, { 'name': member, 'points': points, 'color': 'white'}],
+				time: time,
+				comment: comment,
+				createdDate: createdDate
+			}));
+		} else {
+			dispatch(gameListAddAction( {
+				id: id,
+				title: title,
+				scenario: scenario,
+				memberAndPoints: memberAndPoints,
+				time: time,
+				comment: comment,
+				createdDate: createdDate
+			}));
+		}
+		
 		history.push('/history');
 	};
 
+	const selectedColor = memberAndPoints.map((select) => {
+		return select.color
+	})
 	
 	return(
 		<>
-		{/* <div className="createNewGameWrapper"> */}
 		<header>
 			<Header />
 		</header>
@@ -103,7 +133,7 @@ const CreateNewGame = () => {
 
 			<label>
 				<h2 className="createNewGameH2" >Member:</h2>
-				<input type="text" value={member} onChange={handleChangeMember}/>
+				<input type="text" value={member} maxLength="30" onChange={handleChangeMember}/>
 			</label>
 
 			<label>
@@ -116,9 +146,21 @@ const CreateNewGame = () => {
 			{memberAndPoints &&
 			<ul>
 				{memberAndPoints.map((item, index) => (
-					<div key={index}>
-					{item.name}, {item.points} points
-					<button className="removeButton" onClick={ () => removeMember(index)}>Remove</button>
+					<div key={index} style={{ color: selectedColor[index]}}>
+						{item.name}, {item.points} points
+						<button className="removeButton" onClick={ () => removeMember(index)}>Remove</button>
+						<select name="memberColor" onChange={(e)=>handleChangeMemberColor(e,index)}>
+							<option value="" hidden>Select this members color</option>
+							<option defaultValue="white">White</option>
+							<option value="red" >Red</option>
+							<option value="blue">Blue</option>
+							<option value="green">Green</option>
+							<option value="yellow">Yellow</option>
+							<option value="orange">Orange</option>
+							<option value="pink">Pink</option>
+							<option value="lightblue">Light blue</option>
+							<option value="lightgreen">Light green</option>
+						</select>
 					</div>
 				))}
 			</ul>
@@ -136,9 +178,6 @@ const CreateNewGame = () => {
 			<div className="addButton">
 			<DefaultButton ButtonName="ADD GAME" onClick={handleSubmit} />
 			</div>
-			
-			
-			
 		</form>
 		</div>
 		

@@ -19,10 +19,13 @@ const EditGame = () => {
 
 	const [title, setTitle] = useState('');
 	const [scenario, setScenario] = useState('');
+	const [color, setColor] = useState([]);
 	const [memberAndPoints, setMemberAndPoints] = useState([]);
 	const [time, setTime] = useState('');
 	const [comment, setComment] = useState('');
+	const [createdDate, setCreatedDate] = useState('');
 	let newMemberAndPointsList = [];
+	let colorArray = [];
 
 	useEffect (() => {
 		selectedHistory.map(game => {
@@ -30,9 +33,12 @@ const EditGame = () => {
 			setScenario(game.scenario);
 			setTime(game.time);
 			setComment(game.comment)
+			setCreatedDate(game.createdDate);
 			game.memberAndPoints.map((memberAndPoint) => {
-				newMemberAndPointsList = [...newMemberAndPointsList, { 'name' : memberAndPoint.name, 'points' :memberAndPoint.points}];
+				newMemberAndPointsList = [...newMemberAndPointsList, { 'name' : memberAndPoint.name, 'points' :memberAndPoint.points, 'color' : memberAndPoint.color}];
 				setMemberAndPoints(newMemberAndPointsList);
+				colorArray = [...colorArray, memberAndPoint.color];
+				setColor(colorArray);
 			})	
 		})
 	},[])
@@ -76,7 +82,8 @@ const EditGame = () => {
 			scenario: scenario,
 			memberAndPoints: memberAndPoints,
 			time: time,
-			comment: comment
+			comment: comment,
+			createdDate: createdDate
 		}));
 		history.push('/history');
 	}
@@ -87,44 +94,51 @@ const EditGame = () => {
 			<Header />
 		</header>
 		<h1 className="title">Edit Game</h1>
+		<div className="editGameWrapper">
 		<div className="editGameForm">
 			{selectedHistory.map((gameList) => (
 				<div key={gameList.id} >
 					<label>
 						<h2 className="editGameH2">Title:</h2>
-						<input value={title} onChange={handleChangeTitle}/>
+						<input className="editTitle" value={title} onChange={handleChangeTitle}/>
 					</label>
 					<label>
 						<h2 className="editGameH2">Scenario:</h2>
-						<input value={scenario} onChange={handleChangeScenario}/>
+						<textarea className="editScenario" value={scenario} onChange={handleChangeScenario}/>
 					</label>
 					<h2 className="editGameH2">Members:</h2>
-					<ul>
-					{gameList.memberAndPoints.map((memberAndPoint,index) => (
-						<div key={index} >
-							{memberAndPoint.name}
-							{memberAndPoints.length >= 1 && 
-							<>
-							<input value={memberAndPoints[index].points}  onChange={(e) => handleChangePoints(e,index)} /> Points
-							</>
-							}
-						</div>	
-					))}
-					</ul>
+					{color && 
+						<ul>
+						{gameList.memberAndPoints.map((memberAndPoint,index) => (
+							<div key={index} className="EditmemberAndPoints">
+								<p className="editName" style={{ color: color[index]}}>{memberAndPoint.name}</p>
+								{memberAndPoints.length >= 1 && 
+								<>
+								<input value={memberAndPoints[index].points}  onChange={(e) => handleChangePoints(e,index)} />
+								</>
+								}
+							</div>	
+						))}
+						</ul>
+					}							
+
 					<label>
 						<h2 className="editGameH2">Total Time:</h2>
 						<input value={time} onChange={handleChangeTime}/>
 					</label>
 					<label>
 						<h2 className="editGameH2">Comment:</h2>
-						<input value={comment} onChange={handleChangeComment}/>
-					</label>	
-					<DefaultButton ButtonName="SAVE" onClick={() => handleSubmit(gameList.id)} />
+						<textarea className="editComment" value={comment} onChange={handleChangeComment}/>
+					</label>
+					<div className="editButton">
+						<DefaultButton ButtonName="SAVE" onClick={() => handleSubmit(gameList.id)} />
+					</div>
 				</div>
 			))}
 
 			
 			
+		</div>
 		</div>
 		</>
 	)

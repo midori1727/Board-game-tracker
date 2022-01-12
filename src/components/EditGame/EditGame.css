@@ -1,12 +1,63 @@
+.editGameWrapper {
+	display: flex;
+	justify-content: center;
+}
+
 .editGameForm {
 	text-align: left;
+	width: 80vw;
+}
+
+input {
+	height: 3em;
+	outline: none;
+}
+
+textarea {
+	height: 3em;
+	outline: none;
 }
 
 .editGameH2 {
 	color: white;
+	font-family: 'Roboto', sans-serif;
+}
+
+.editTitle {
+	width: 100%;
+}
+
+.editScenario {
+	width: 100%;
+	height: 5em;
 }
 
 .editGameForm ul {
 	color: white;
 	padding-left: 0;
+}
+
+.EditmemberAndPoints {
+	display: flex;
+	justify-content: space-between;
+}
+
+.editName {
+	display: inline;
+}
+
+.editComment {
+	width: 100%;
+	height: 7em;
+}
+
+.editButton {
+	text-align: center;
+}
+
+
+@media screen and (min-width: 769px){
+	.editGameForm {
+		width: 60vw;
+	}
 }

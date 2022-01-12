@@ -4,6 +4,7 @@ import Header from '../Header/Header';
 import {gameListRemoveAction} from '../../redux/actions/index';
 import './SingleHistory.css';
 import DefaultButton from '../Button/DefaultButton';
+import { useEffect, useState } from 'react';
 
 const SingleHistory = () => {
 
@@ -13,9 +14,21 @@ const SingleHistory = () => {
 	const dispatch = useDispatch();
 	const history = useHistory()
 
+	const [color, setColor] = useState([]);
+
 	const selectedHistory = gameLists.filter(gameList => {
 		return gameList.id === params.id;
 	})
+
+	let colorArray = [];
+	useEffect (() => {
+		selectedHistory.map(gameList => {
+			gameList.memberAndPoints.map((memberAndPoint)=> {
+				colorArray = [...colorArray, memberAndPoint.color];
+				setColor(colorArray);
+			})
+		})
+	},[])
 
 
 	const handleRemove = (id) => {
@@ -35,17 +48,21 @@ const SingleHistory = () => {
 			<Header />
 		</header>
 		<h1 className="title">History</h1>
-		<div className="gameDetail">
+		<div className="gameDetailsWrapper">
 			{selectedHistory.map((gameList) => (
-					<div className="game" key={gameList.id} >
-						<h1>{gameList.title}</h1>
-						<p>{gameList.scenario}</p>
+					<div className="gameDetails" key={gameList.id} >
+						<h1 >{gameList.title}</h1>
+						<p className="gameDetailsScenario">Scenario: {gameList.scenario}</p>
+						{color && 
+						<>
 						{gameList.memberAndPoints.map((memberAndPoint,index) => (
 							<div className="gameMemberAndPoints" key={index} >
-								<p>{memberAndPoint.name}</p>
-								<p>{memberAndPoint.points} Points</p>
+								<p style={{ color: color[index]}}>{memberAndPoint.name}</p>
+								<p style={{ color: color[index]}}>{memberAndPoint.points} Points</p>
 							</div>	
 						))}
+						</>
+							}
 						<p className="gameTotalTime">Total Time: {gameList.time}</p>
 						<p className="gameComment">Comment: {gameList.comment}</p>
 						<DefaultButton ButtonName="REMOVE" onClick={()=> handleRemove(gameList.id)} />

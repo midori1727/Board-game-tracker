@@ -8,6 +8,8 @@
 	color: #283654;
 	border-radius: 1em;
 	margin: 1em 0;
+	font-family: 'Saira Semi Condensed', sans-serif;
+	/* font-size: 1em; */
 }
 
 #Button:hover {

@@ -1,9 +1,25 @@
+.gameDetailsWrapper {
+	display: flex;
+    justify-content: center;
+}
+
 h1.title {
 	color: #CFE0F9;
 }
 
-.game h1, p {
+.gameDetails {
+	width: 80vw;
+	padding: 2em
+}
+
+.gameDetails h1, p {
 	color: white;
+	font-family: 'Roboto', sans-serif;
+}
+
+.gameDetailsScenario {
+	text-align: left;
+	overflow-wrap: anywhere;
 }
 
 .gameMemberAndPoints {
@@ -21,5 +37,11 @@ h1.title {
 
 .gameComment {
 	text-align: left;
+	overflow-wrap: anywhere;
 }
 
+@media screen and (min-width: 769px){
+	.gameDetails {
+		width: 60vw;
+	}
+}
