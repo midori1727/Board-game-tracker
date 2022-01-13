@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch} from 'react-redux';
 import {gameListAddAction} from '../../redux/actions/index'
@@ -18,11 +18,23 @@ const CreateNewGame = () => {
 	const [scenario, setScenario] = useState('');
 	const [member, setMember] = useState('');
 	const [points, setPoints] = useState('');
-	const [color, setColor] = useState('White');
+	const color = useState('white');
 	const [memberAndPoints, setMemberAndPoints] = useState([]);
 	const [time, setTime] = useState('');
 	const [comment, setComment] = useState('');
+	const [createdDate, setCreatedDate] = useState('');
 
+
+	useEffect (() => {
+		const now = new Date();
+		const year = now.getFullYear();
+		let month = ("0"+(now.getMonth() + 1)).slice(-2);
+		let day =  ("0"+now.getDate()).slice(-2);
+		const createdDate = `${year}-${month}-${day}`;
+		console.log(createdDate);
+		setCreatedDate(createdDate)
+
+	},[])
 
 	const handleChangeTitle = (e) => {
 		setTitle(e.target.value);
@@ -48,6 +60,10 @@ const CreateNewGame = () => {
 		setComment(e.target.value);
 	};
 
+	const handleCreatedDate = (e) => {
+		setCreatedDate(e.target.value);
+	}
+
 	const handleChangeMemberColor = (e, index) => {
 		let pointsAndMembersArray = [...memberAndPoints];
 		let addColor =  pointsAndMembersArray[index].color;
@@ -55,10 +71,6 @@ const CreateNewGame = () => {
 		pointsAndMembersArray[index].color = addColor;
 		setMemberAndPoints(pointsAndMembersArray);
 	}
-
-	console.log(color);
-
-	console.log(memberAndPoints);
 
 	const addMember = (e) => {
 		e.preventDefault();
@@ -76,13 +88,14 @@ const CreateNewGame = () => {
 		setMemberAndPoints(newDataList);
 	};
 
+	const selectedColor = memberAndPoints.map((select) => {
+		return select.color
+	})
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		const now = new Date();
-		const createdDate = now.toLocaleString();
-
-		if(title === '' || scenario === '' || memberAndPoints.length === 0 || time === '' || comment === '') return;
+		if(title === '' || scenario === '' || memberAndPoints.length === 0 || time === '' || comment === '' || createdDate === '') return;
 
 		if(member && points){
 			dispatch(gameListAddAction( {
@@ -105,13 +118,8 @@ const CreateNewGame = () => {
 				createdDate: createdDate
 			}));
 		}
-		
 		history.push('/history');
 	};
-
-	const selectedColor = memberAndPoints.map((select) => {
-		return select.color
-	})
 	
 	return(
 		<>
@@ -132,7 +140,7 @@ const CreateNewGame = () => {
 			</label>
 
 			<label>
-				<h2 className="createNewGameH2" >Member:</h2>
+				<h2 className="createNewGameH2" >Player:</h2>
 				<input type="text" value={member} maxLength="30" onChange={handleChangeMember}/>
 			</label>
 
@@ -141,25 +149,24 @@ const CreateNewGame = () => {
 				<input type="text" value={points} onChange={handleChangePoints}/>
 			</label>
 
-			<button className="addMemberButton"onClick={addMember}>+ Add new member</button>
+			<button className="addMemberButton"onClick={addMember}>+ Add</button>
 
 			{memberAndPoints &&
 			<ul>
 				{memberAndPoints.map((item, index) => (
 					<div key={index} style={{ color: selectedColor[index]}}>
-						{item.name}, {item.points} points
+						{item.name} {item.points} points
 						<button className="removeButton" onClick={ () => removeMember(index)}>Remove</button>
-						<select name="memberColor" onChange={(e)=>handleChangeMemberColor(e,index)}>
-							<option value="" hidden>Select this members color</option>
+						<select name="memberColor" className="selectColor" onChange={(e)=>handleChangeMemberColor(e,index)}>
+							<option value="" hidden>Change color</option>
 							<option defaultValue="white">White</option>
-							<option value="red" >Red</option>
-							<option value="blue">Blue</option>
-							<option value="green">Green</option>
+							<option value="rgb(250, 84, 84)" >Red</option>
+							<option value="lightblue">Blue</option>
+							<option value="lightgreen">Green</option>
 							<option value="yellow">Yellow</option>
-							<option value="orange">Orange</option>
+							<option value="#FF8574">Orange</option>
 							<option value="pink">Pink</option>
-							<option value="lightblue">Light blue</option>
-							<option value="lightgreen">Light green</option>
+							<option value="lightgray">Gray</option>
 						</select>
 					</div>
 				))}
@@ -168,19 +175,24 @@ const CreateNewGame = () => {
 
 			<label>
 				<h2 className="createNewGameH2" >Total time:</h2>
-				<input type="text" value={time} placeholder="〇〇:〇〇" onChange={handleChangeTime}/>
+				{/* <input type="text" value={time} placeholder="〇〇:〇〇" onChange={handleChangeTime}/> */}
+				<input type="time" value={time} placeholder="〇〇:〇〇" onChange={handleChangeTime}/>
 			</label>
 
 			<label>
 				<h2 className="createNewGameH2" >Comment:</h2>
 				<textarea className="inputComment" value={comment} onChange={handleChangeComment}　required />
 			</label>
+			<label >
+			<h2 className="createNewGameH2" >Created date:</h2>
+				{/* <input type="text" value={createdDate} placeholder='2022/01/21' onChange={handleCreatedDate}/> */}
+				<input type="date" value={createdDate} name='createdDate' onChange={handleCreatedDate}/>
+			</label>
 			<div className="addButton">
 			<DefaultButton ButtonName="ADD GAME" onClick={handleSubmit} />
 			</div>
 		</form>
 		</div>
-		
 		</>
 	)
 };

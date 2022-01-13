@@ -23,13 +23,16 @@ h1.title {
 	margin: 0.5em;
 	padding: 0.2em;
 	border-radius: 1em;
-	width: 40vw;
+	width: 20vw;
 	overflow: hidden;
 }
 
 .gameListCard h1{
 	color: #283654;
 	font-family: 'Saira Semi Condensed', sans-serif;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .gameListCard p{
 	color: #283654;
@@ -42,6 +45,14 @@ h1.title {
 @media screen and (max-width:640px){
 	.gameLists {
 		width: 95vw;
+	}
+
+	.gameListCard {
+		width: 35vw;
+	}
+
+	.gameListCard h1{
+		font-size: 1.1em;
 	}
 }
 

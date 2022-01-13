@@ -23,6 +23,7 @@ h1.title {
 .createNewGameForm ul {
 	color: white;
 	padding-left: 0;
+	font-size: 1.2em;
 }
 
 input {
@@ -33,6 +34,23 @@ input {
 textarea {
 	height: 3em;
 	outline: none;
+}
+
+.selectColor {
+    /* margin-top: 0.5em; */
+	color: #CFE0F9;
+	background: transparent;
+	border: transparent;
+	cursor: pointer;
+	font-size: 0.8em;
+}
+
+
+
+.selectColor *
+{
+ color: #283654;
+ width: 5em;
 }
 
 .inputTitle {
@@ -69,6 +87,13 @@ textarea:focus {
 	outline: none;
 	color: #283654;
 	margin: 0.5em;
+	font-size: 0.8em;
+}
+
+.removeButton:hover {
+	background: #283654;
+	color: #CFE0F9;
+	border:#283654 solid 1px;
 }
 
 .addMemberButton {
@@ -78,45 +103,12 @@ textarea:focus {
 	background: transparent;
 	border: transparent;
 	cursor: pointer;
-}
-
-.memberColor option:nth-child(3){
-	color: red;
-}
-
-.memberColor option:nth-child(4){
-	color: blue;
-}
-
-.memberColor option:nth-child(5){
-	color: green;
-}
-
-.memberColor option:nth-child(6){
-	color: yellow;
-}
-
-.memberColor option:nth-child(7){
-	color: orange;
-}
-
-.memberColor option:nth-child(8){
-	color: pink;
-}
-
-.memberColor option:nth-child(9){
-	color: lightblue;
-}
-
-.memberColor option:nth-child(10){
-	color: lightgreen;
+	font-size: 1.1em;
 }
 
 .addButton {
 	text-align: center;
 }
-
-
 
 @media screen and (min-width: 769px){
 	.createNewGameForm {

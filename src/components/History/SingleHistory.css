@@ -40,6 +40,80 @@ h1.title {
 	overflow-wrap: anywhere;
 }
 
+.gameCreatedDate {
+	text-align: left;
+}
+
+/* Modal CSS */
+
+
+.overlay-base {
+	padding: 1rem;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0);
+	opacity: 0;
+	transition-property: background-color, opacity;
+	transition-duration: 500ms;
+	transition-timing-function: ease-in-out;
+	outline: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+  }
+  
+  .overlay-after {
+	background-color: rgba(0, 0, 0, 0.8);
+	opacity: 1;
+  }
+  
+  .overlay-before {
+	background-color: rgba(0, 0, 0, 0);
+	opacity: 0;
+  }
+  
+  .content-base {
+	position: relative;
+	top: auto;
+	left: auto;
+	right: auto;
+	bottom: auto;
+	margin: 0 auto;
+	border: 0;
+	outline: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 0%;
+	width: 0%;
+	background-color: transparent;
+	transition-property: background-color, width, height;
+	transition-duration: 500ms;
+	transition-timing-function: ease-in-out;
+  }
+  
+  .content-after {
+	width: 70%;
+	height: 40%;
+	/* background-color: rgba(250, 190, 190, 0.8); */
+	background: -webkit-linear-gradient(90deg, #EC6F66 10%, #F3A183 90%); /* Chrome 10+, Saf5.1+ */
+	background:    -moz-linear-gradient(90deg, #EC6F66 10%, #F3A183 90%); /* FF3.6+ */
+	background:     -ms-linear-gradient(90deg, #EC6F66 10%, #F3A183 90%); /* IE10 */
+	background:      -o-linear-gradient(90deg, #EC6F66 10%, #F3A183 90%); /* Opera 11.10+ */
+	background:         linear-gradient(90deg, #EC6F66 10%, #F3A183 90%); /* W3C */
+	flex-direction: column;
+  }
+  
+  .content-before {
+	width: 0%;
+	height: 0%;
+	background-color: transparent;
+  }
+
 @media screen and (min-width: 769px){
 	.gameDetails {
 		width: 60vw;

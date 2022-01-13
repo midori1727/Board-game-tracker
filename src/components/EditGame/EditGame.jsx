@@ -68,13 +68,17 @@ const EditGame = () => {
 		setComment(e.target.value);
 	};
 
+	const handleChangeCreated = (e) => {
+		setCreatedDate(e.target.value);
+	}
+
 	const handleSubmit = (id) => {
 
 		memberAndPoints.map((memberAndPoint) => {
 			if(memberAndPoint.points === '')
 			return 
 		})
-		if(title === '' || scenario === '' || time === '' || comment === '') return;
+		if(title === '' || scenario === '' || time === '' || comment === '' || createdDate === '') return;
 
 		dispatch(gameListEditAction( {
 			id: id,
@@ -124,20 +128,23 @@ const EditGame = () => {
 
 					<label>
 						<h2 className="editGameH2">Total Time:</h2>
-						<input value={time} onChange={handleChangeTime}/>
+						{/* <input value={time} onChange={handleChangeTime}/> */}
+						<input type='time' value={time} onChange={handleChangeTime}/>
 					</label>
 					<label>
 						<h2 className="editGameH2">Comment:</h2>
 						<textarea className="editComment" value={comment} onChange={handleChangeComment}/>
 					</label>
+					<label>
+						<h2 className="editGameH2">Created Date:</h2>
+						<input type='date' value={createdDate} onChange={handleChangeCreated}/>
+					</label>
 					<div className="editButton">
+						<DefaultButton ButtonName="CANCEL" onClick={()=>history.goBack()} />
 						<DefaultButton ButtonName="SAVE" onClick={() => handleSubmit(gameList.id)} />
 					</div>
 				</div>
 			))}
-
-			
-			
 		</div>
 		</div>
 		</>
