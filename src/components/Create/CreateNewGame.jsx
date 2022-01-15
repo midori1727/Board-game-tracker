@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch} from 'react-redux';
-import {gameListAddAction} from '../../redux/actions/index'
+import {gameListAddAction} from '../../redux/actions/index';
 import './CreateNewGame.css';
 import Header from '../Header/Header';
 import DefaultButton from '../Button/DefaultButton';
 import { v4 as uuidv4 } from 'uuid';
-
 
 const CreateNewGame = () => {
 
@@ -24,6 +23,15 @@ const CreateNewGame = () => {
 	const [comment, setComment] = useState('');
 	const [createdDate, setCreatedDate] = useState('');
 
+	// validation
+	const [ titleIsValid, setTitleIsValid ] = useState(true);
+	const [ titleErrorMessage, setTitleErrorMessage ] = useState('');
+	const [ memberAndPointsIsValid, setMemberAndPointsIsValid ] = useState(true);
+	const [ memberAndPointsErrorMessage, setMemberAndPointsErrorMessage ] = useState(true);
+	const [ timeIsValid, setTimeIsValid ] = useState(true);
+	const [ timeErrorMessage, setTimeErrorMessage ] = useState('');
+	const [ pointsIsValid, setPointsIsValid ] = useState(true);
+	const [ pointsErrorMessage, setPointsErrorMessage ] = useState('');
 
 	useEffect (() => {
 		const now = new Date();
@@ -31,13 +39,12 @@ const CreateNewGame = () => {
 		let month = ("0"+(now.getMonth() + 1)).slice(-2);
 		let day =  ("0"+now.getDate()).slice(-2);
 		const createdDate = `${year}-${month}-${day}`;
-		console.log(createdDate);
-		setCreatedDate(createdDate)
-
+		setCreatedDate(createdDate);
 	},[])
 
 	const handleChangeTitle = (e) => {
 		setTitle(e.target.value);
+		setTitleIsValid(true);
 	};
 
 	const handleChangeScenario = (e) => {
@@ -50,10 +57,12 @@ const CreateNewGame = () => {
 
 	const handleChangePoints = (e) => {
 		setPoints(e.target.value);
+		setPointsIsValid(true);
 	};
 
 	const handleChangeTime = (e) => {
 		setTime(e.target.value);
+		setTimeIsValid(true);
 	};
 
 	const handleChangeComment  = (e) => {
@@ -75,11 +84,16 @@ const CreateNewGame = () => {
 	const addMember = (e) => {
 		e.preventDefault();
 		if(member === '' || points === '') return
-		if(points.match(/[^0-9]+/)) return
+		if(points.match(/[^0-9]+/)){
+			setPointsIsValid(false);
+			setPointsErrorMessage('Please only use digit');
+			return
+		}
 		// setMemberAndPoints([...memberAndPoints, { 'name': member, 'points': points}]);
 		setMemberAndPoints([...memberAndPoints, { 'name': member, 'points': points, 'color': color}]);
 		setMember('');
 		setPoints('');
+		setMemberAndPointsIsValid(true);
 	};
 
 	const removeMember = (index) => {
@@ -89,24 +103,36 @@ const CreateNewGame = () => {
 	};
 
 	const selectedColor = memberAndPoints.map((select) => {
-		return select.color
+		return select.color;
 	})
+
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+	
+		if( title === '' ) {
+			setTitleIsValid(false);
+			setTitleErrorMessage('Please input title');
+			return
+		}else if (memberAndPoints.length === 0){
+			setMemberAndPointsIsValid(false);
+			setMemberAndPointsErrorMessage('Please add at least one player');
+			return
+		}else if(time === '') {
+			setTimeIsValid(false);
+			setTimeErrorMessage('Please input total time');
+			return
 
-		if(title === '' || scenario === '' || memberAndPoints.length === 0 || time === '' || comment === '' || createdDate === '') return;
-
-		if(member && points){
-			dispatch(gameListAddAction( {
-				id: id,
-				title: title,
-				scenario: scenario,
-				memberAndPoints: [...memberAndPoints, { 'name': member, 'points': points, 'color': 'white'}],
-				time: time,
-				comment: comment,
-				createdDate: createdDate
-			}));
+		// if(member && points){
+		// 	dispatch(gameListAddAction( {
+		// 		id: id,
+		// 		title: title,
+		// 		scenario: scenario,
+		// 		memberAndPoints: [...memberAndPoints, { 'name': member, 'points': points, 'color': 'white'}],
+		// 		time: time,
+		// 		comment: comment,
+		// 		createdDate: createdDate
+		// 	}));
 		} else {
 			dispatch(gameListAddAction( {
 				id: id,
@@ -120,7 +146,7 @@ const CreateNewGame = () => {
 		}
 		history.push('/history');
 	};
-	
+
 	return(
 		<>
 		<header>
@@ -131,7 +157,13 @@ const CreateNewGame = () => {
 		<form className="createNewGameForm">
 			<label>
 				<h2 className="createNewGameH2" >Title:</h2>
-				<input className="inputTitle" type="text" value={title} onChange={handleChangeTitle} required/>
+				<input className="inputTitle" type="text" value={title} onChange={handleChangeTitle}  />
+				{!titleIsValid
+				 &&
+				 <div className="error-message">
+					 {titleErrorMessage}
+				 </div>
+				 }
 			</label>
 
 			<label>
@@ -142,14 +174,26 @@ const CreateNewGame = () => {
 			<label>
 				<h2 className="createNewGameH2" >Player:</h2>
 				<input type="text" value={member} maxLength="30" onChange={handleChangeMember}/>
+				{!memberAndPointsIsValid
+				 &&
+				 <div className="error-message">
+					 {memberAndPointsErrorMessage}
+				 </div>
+				 }
 			</label>
 
 			<label>
 				<h2 className="createNewGameH2" >Points:</h2>
-				<input type="text" value={points} onChange={handleChangePoints}/>
+				<input type="text" value={points} onChange={handleChangePoints} />
+				{!pointsIsValid
+				 &&
+				 <div className="error-message">
+					 {pointsErrorMessage}
+				 </div>
+				 }
 			</label>
 
-			<button className="addMemberButton"onClick={addMember}>+ Add</button>
+			<button className="addMemberButton" onClick={addMember}>+ Add</button>
 
 			{memberAndPoints &&
 			<ul>
@@ -167,6 +211,7 @@ const CreateNewGame = () => {
 							<option value="#FF8574">Orange</option>
 							<option value="pink">Pink</option>
 							<option value="lightgray">Gray</option>
+							<option value="rgb(207, 98, 207)">Purple</option>
 						</select>
 					</div>
 				))}
@@ -175,8 +220,13 @@ const CreateNewGame = () => {
 
 			<label>
 				<h2 className="createNewGameH2" >Total time:</h2>
-				{/* <input type="text" value={time} placeholder="〇〇:〇〇" onChange={handleChangeTime}/> */}
-				<input type="time" value={time} placeholder="〇〇:〇〇" onChange={handleChangeTime}/>
+				<input type="time" value={time} onChange={handleChangeTime}/>
+				{!timeIsValid
+				 &&
+				 <div className="error-message">
+					 {timeErrorMessage}
+				 </div>
+				 }
 			</label>
 
 			<label>
@@ -185,7 +235,6 @@ const CreateNewGame = () => {
 			</label>
 			<label >
 			<h2 className="createNewGameH2" >Created date:</h2>
-				{/* <input type="text" value={createdDate} placeholder='2022/01/21' onChange={handleCreatedDate}/> */}
 				<input type="date" value={createdDate} name='createdDate' onChange={handleCreatedDate}/>
 			</label>
 			<div className="addButton">
@@ -193,6 +242,7 @@ const CreateNewGame = () => {
 			</div>
 		</form>
 		</div>
+
 		</>
 	)
 };

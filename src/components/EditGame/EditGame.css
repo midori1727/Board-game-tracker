@@ -11,11 +11,13 @@
 input {
 	height: 3em;
 	outline: none;
+	font-size: 0.8em;
 }
 
 textarea {
 	height: 3em;
 	outline: none;
+	font-size: 100%;
 }
 
 .editGameH2 {

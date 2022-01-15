@@ -29,11 +29,13 @@ h1.title {
 input {
 	height: 3em;
 	outline: none;
+	font-size: 0.8em;
 }
 
 textarea {
 	height: 3em;
 	outline: none;
+	font-size: 100%;
 }
 
 .selectColor {
@@ -108,6 +110,11 @@ textarea:focus {
 
 .addButton {
 	text-align: center;
+}
+
+.error-message {
+	color: rgb(221, 47, 47);
+	margin-top: 0.2em;
 }
 
 @media screen and (min-width: 769px){
