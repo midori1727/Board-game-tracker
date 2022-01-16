@@ -89,7 +89,6 @@ const CreateNewGame = () => {
 			setPointsErrorMessage('Please only use digit');
 			return
 		}
-		// setMemberAndPoints([...memberAndPoints, { 'name': member, 'points': points}]);
 		setMemberAndPoints([...memberAndPoints, { 'name': member, 'points': points, 'color': color}]);
 		setMember('');
 		setPoints('');
@@ -154,95 +153,96 @@ const CreateNewGame = () => {
 		</header>
 		<h1 className="title">Create New Game</h1>
 		<div className="createNewGameWrapper">
-		<form className="createNewGameForm">
-			<label>
-				<h2 className="createNewGameH2" >Title:</h2>
-				<input className="inputTitle" type="text" value={title} onChange={handleChangeTitle}  />
-				{!titleIsValid
-				 &&
-				 <div className="error-message">
-					 {titleErrorMessage}
-				 </div>
-				 }
-			</label>
-
-			<label>
-				<h2 className="createNewGameH2" >Scenario:</h2>
-				<textarea className="inputScenario" value={scenario} onChange={handleChangeScenario} />
-			</label>
-
-			<label>
-				<h2 className="createNewGameH2" >Player:</h2>
-				<input type="text" value={member} maxLength="30" onChange={handleChangeMember}/>
-				{!memberAndPointsIsValid
-				 &&
-				 <div className="error-message">
-					 {memberAndPointsErrorMessage}
-				 </div>
-				 }
-			</label>
-
-			<label>
-				<h2 className="createNewGameH2" >Points:</h2>
-				<input type="text" value={points} onChange={handleChangePoints} />
-				{!pointsIsValid
-				 &&
-				 <div className="error-message">
-					 {pointsErrorMessage}
-				 </div>
-				 }
-			</label>
-
-			<button className="addMemberButton" onClick={addMember}>+ Add</button>
-
-			{memberAndPoints &&
-			<ul>
-				{memberAndPoints.map((item, index) => (
-					<div key={index} style={{ color: selectedColor[index]}}>
-						{item.name} {item.points} points
-						<button className="removeButton" onClick={ () => removeMember(index)}>Remove</button>
-						<select name="memberColor" className="selectColor" onChange={(e)=>handleChangeMemberColor(e,index)}>
-							<option value="" hidden>Change color</option>
-							<option defaultValue="white">White</option>
-							<option value="rgb(250, 84, 84)" >Red</option>
-							<option value="lightblue">Blue</option>
-							<option value="lightgreen">Green</option>
-							<option value="yellow">Yellow</option>
-							<option value="#FF8574">Orange</option>
-							<option value="pink">Pink</option>
-							<option value="lightgray">Gray</option>
-							<option value="rgb(207, 98, 207)">Purple</option>
-						</select>
+			<form className="createNewGameForm">
+				<label>
+					<h2 className="createNewGameH2" >Title:</h2>
+					<input className="inputTitle" type="text" value={title} onChange={handleChangeTitle}  />
+					{!titleIsValid
+					&&
+					<div className="error-message">
+						{titleErrorMessage}
 					</div>
-				))}
-			</ul>
-			}
+					}
+				</label>
 
-			<label>
-				<h2 className="createNewGameH2" >Total time:</h2>
-				<input type="time" value={time} onChange={handleChangeTime}/>
-				{!timeIsValid
-				 &&
-				 <div className="error-message">
-					 {timeErrorMessage}
-				 </div>
-				 }
-			</label>
+				<label>
+					<h2 className="createNewGameH2" >Scenario:</h2>
+					<textarea className="inputScenario" value={scenario} onChange={handleChangeScenario} />
+				</label>
 
-			<label>
-				<h2 className="createNewGameH2" >Comment:</h2>
-				<textarea className="inputComment" value={comment} onChange={handleChangeComment}　required />
-			</label>
-			<label >
-			<h2 className="createNewGameH2" >Created date:</h2>
-				<input type="date" value={createdDate} name='createdDate' onChange={handleCreatedDate}/>
-			</label>
-			<div className="addButton">
-			<DefaultButton ButtonName="ADD GAME" onClick={handleSubmit} />
-			</div>
-		</form>
+				<label>
+					<h2 className="createNewGameH2" >Player:</h2>
+					<input type="text" value={member} maxLength="30" onChange={handleChangeMember}/>
+					{!memberAndPointsIsValid
+					&&
+					<div className="error-message">
+						{memberAndPointsErrorMessage}
+					</div>
+					}
+				</label>
+
+				<label>
+					<h2 className="createNewGameH2" >Points:</h2>
+					<input type="text" value={points} onChange={handleChangePoints} />
+					{!pointsIsValid
+					&&
+					<div className="error-message">
+						{pointsErrorMessage}
+					</div>
+					}
+				</label>
+
+				<button className="addMemberButton" onClick={addMember}>+ Add</button>
+
+				{memberAndPoints &&
+				<ul>
+					{memberAndPoints.map((item, index) => (
+						<div key={index} style={{ color: selectedColor[index]}}>
+							{item.name} {item.points} points
+							<button className="removeButton" onClick={ () => removeMember(index)}>Remove</button>
+							<select name="memberColor" className="selectColor" onChange={(e)=>handleChangeMemberColor(e,index)}>
+								<option value="" hidden>Change color</option>
+								<option defaultValue="white">White</option>
+								<option value="rgb(250, 84, 84)" >Red</option>
+								<option value="lightblue">Blue</option>
+								<option value="lightgreen">Green</option>
+								<option value="yellow">Yellow</option>
+								<option value="#FF8574">Orange</option>
+								<option value="pink">Pink</option>
+								<option value="lightgray">Gray</option>
+								<option value="rgb(207, 98, 207)">Purple</option>
+							</select>
+						</div>
+					))}
+				</ul>
+				}
+
+				<label>
+					<h2 className="createNewGameH2" >Total time:</h2>
+					<input type="time" value={time} onChange={handleChangeTime}/>
+					{!timeIsValid
+					&&
+					<div className="error-message">
+						{timeErrorMessage}
+					</div>
+					}
+				</label>
+
+				<label>
+					<h2 className="createNewGameH2" >Comment:</h2>
+					<textarea className="inputComment" value={comment} onChange={handleChangeComment}　required />
+				</label>
+
+				<label >
+				<h2 className="createNewGameH2" >Created date:</h2>
+					<input type="date" value={createdDate} name='createdDate' onChange={handleCreatedDate}/>
+				</label>
+
+				<div className="addButton">
+					<DefaultButton ButtonName="ADD GAME" onClick={handleSubmit} />
+				</div>
+			</form>
 		</div>
-
 		</>
 	)
 };

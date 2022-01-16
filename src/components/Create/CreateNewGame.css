@@ -39,7 +39,6 @@ textarea {
 }
 
 .selectColor {
-    /* margin-top: 0.5em; */
 	color: #CFE0F9;
 	background: transparent;
 	border: transparent;
@@ -47,10 +46,7 @@ textarea {
 	font-size: 0.8em;
 }
 
-
-
-.selectColor *
-{
+.selectColor * {
  color: #283654;
  width: 5em;
 }
@@ -122,8 +118,7 @@ textarea:focus {
 		width: 60vw;
 	}
 }
-	
-	
+		
 @media screen and (max-width: 768px){
 
 }

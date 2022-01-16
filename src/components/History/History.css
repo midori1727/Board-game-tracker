@@ -3,7 +3,6 @@
 	justify-content: center;
 }
 
-
 h1.title {
 	color: #CFE0F9;
 }
@@ -15,7 +14,6 @@ h1.title {
 	cursor: pointer;
 	width: 90vw;
 }
-
 
 .gameListCard {
 	border: solid #CFE0F9 1px;
@@ -34,6 +32,7 @@ h1.title {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 .gameListCard p{
 	color: #283654;
 	overflow: hidden;
@@ -46,11 +45,9 @@ h1.title {
 	.gameLists {
 		width: 95vw;
 	}
-
 	.gameListCard {
 		width: 35vw;
 	}
-
 	.gameListCard h1{
 		font-size: 1.1em;
 	}

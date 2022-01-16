@@ -28,13 +28,13 @@ const EditGame = () => {
 	let colorArray = [];
 
 	useEffect (() => {
-		selectedHistory.map(game => {
+		selectedHistory.forEach(game => {
 			setTitle(game.title);
 			setScenario(game.scenario);
 			setTime(game.time);
 			setComment(game.comment)
 			setCreatedDate(game.createdDate);
-			game.memberAndPoints.map((memberAndPoint) => {
+			game.memberAndPoints.forEach((memberAndPoint) => {
 				newMemberAndPointsList = [...newMemberAndPointsList, { 'name' : memberAndPoint.name, 'points' :memberAndPoint.points, 'color' : memberAndPoint.color}];
 				setMemberAndPoints(newMemberAndPointsList);
 				colorArray = [...colorArray, memberAndPoint.color];
@@ -70,11 +70,11 @@ const EditGame = () => {
 
 	const handleChangeCreated = (e) => {
 		setCreatedDate(e.target.value);
-	}
+	};
 
 	const handleSubmit = (id) => {
 
-		memberAndPoints.map((memberAndPoint) => {
+		memberAndPoints.forEach((memberAndPoint) => {
 			if(memberAndPoint.points === '')
 			return 
 		})
@@ -99,53 +99,57 @@ const EditGame = () => {
 		</header>
 		<h1 className="title">Edit Game</h1>
 		<div className="editGameWrapper">
-		<div className="editGameForm">
-			{selectedHistory.map((gameList) => (
-				<div key={gameList.id} >
-					<label>
-						<h2 className="editGameH2">Title:</h2>
-						<input className="editTitle" value={title} onChange={handleChangeTitle}/>
-					</label>
-					<label>
-						<h2 className="editGameH2">Scenario:</h2>
-						<textarea className="editScenario" value={scenario} onChange={handleChangeScenario}/>
-					</label>
-					<h2 className="editGameH2">Members:</h2>
-					{color && 
-						<ul>
-						{gameList.memberAndPoints.map((memberAndPoint,index) => (
-							<div key={index} className="EditmemberAndPoints">
-								<p className="editName" style={{ color: color[index]}}>{memberAndPoint.name}</p>
-								{memberAndPoints.length >= 1 && 
-								<>
-								<input value={memberAndPoints[index].points}  onChange={(e) => handleChangePoints(e,index)} />
-								</>
-								}
-							</div>	
-						))}
-						</ul>
-					}							
+			<div className="editGameForm">
+				{selectedHistory.map((gameList) => (
+					<div key={gameList.id} >
+						<label>
+							<h2 className="editGameH2">Title:</h2>
+							<input className="editTitle" value={title} onChange={handleChangeTitle}/>
+						</label>
 
-					<label>
-						<h2 className="editGameH2">Total Time:</h2>
-						{/* <input value={time} onChange={handleChangeTime}/> */}
-						<input type='time' value={time} onChange={handleChangeTime}/>
-					</label>
-					<label>
-						<h2 className="editGameH2">Comment:</h2>
-						<textarea className="editComment" value={comment} onChange={handleChangeComment}/>
-					</label>
-					<label>
-						<h2 className="editGameH2">Created Date:</h2>
-						<input type='date' value={createdDate} onChange={handleChangeCreated}/>
-					</label>
-					<div className="editButton">
-						<DefaultButton ButtonName="CANCEL" onClick={()=>history.goBack()} />
-						<DefaultButton ButtonName="SAVE" onClick={() => handleSubmit(gameList.id)} />
+						<label>
+							<h2 className="editGameH2">Scenario:</h2>
+							<textarea className="editScenario" value={scenario} onChange={handleChangeScenario}/>
+						</label>
+
+						<h2 className="editGameH2">Members:</h2>
+						{color && 
+							<ul>
+							{gameList.memberAndPoints.map((memberAndPoint,index) => (
+								<div key={index} className="EditmemberAndPoints">
+									<p className="editName" style={{ color: color[index]}}>{memberAndPoint.name}</p>
+									{memberAndPoints.length >= 1 && 
+									<>
+									<input value={memberAndPoints[index].points}  onChange={(e) => handleChangePoints(e,index)} />
+									</>
+									}
+								</div>	
+							))}
+							</ul>
+						}							
+
+						<label>
+							<h2 className="editGameH2">Total Time:</h2>
+							<input type='time' value={time} onChange={handleChangeTime}/>
+						</label>
+
+						<label>
+							<h2 className="editGameH2">Comment:</h2>
+							<textarea className="editComment" value={comment} onChange={handleChangeComment}/>
+						</label>
+
+						<label>
+							<h2 className="editGameH2">Created Date:</h2>
+							<input type='date' value={createdDate} onChange={handleChangeCreated}/>
+						</label>
+
+						<div className="editButton">
+							<DefaultButton ButtonName="CANCEL" onClick={()=>history.goBack()} />
+							<DefaultButton ButtonName="SAVE" onClick={() => handleSubmit(gameList.id)} />
+						</div>
 					</div>
-				</div>
-			))}
-		</div>
+				))}
+			</div>
 		</div>
 		</>
 	)

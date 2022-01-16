@@ -1,5 +1,3 @@
-// import {GAME_LIST_ADD, GAME_LIST_REMOVE, GAME_LIST_EDIT} from './types';
-
 export const gameListAddAction = (gameData) => {
 	return {
 		type: "GAME_LIST_ADD",

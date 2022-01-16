@@ -15,7 +15,7 @@ const SingleHistory = () => {
 	const gameLists = selector.gameList.gameLists;
 	const params = useParams();
 	const dispatch = useDispatch();
-	const history = useHistory()
+	const history = useHistory();
 
 	const [id, setId] = useState('');
 	const [color, setColor] = useState([]);
@@ -25,12 +25,19 @@ const SingleHistory = () => {
 
 	const selectedHistory = gameLists.filter(gameList => {
 		return gameList.id === params.id;
-	})
+	});
 
 	useEffect (() => {
-		selectedHistory.map(gameList => {
+		// selectedHistory.map(gameList => {
+		// 	setId(gameList.id)
+		// 	gameList.memberAndPoints.map((memberAndPoint)=> {
+		// 		colorArray = [...colorArray, memberAndPoint.color];
+		// 		setColor(colorArray);
+		// 	})
+		// })
+		selectedHistory.forEach(gameList => {
 			setId(gameList.id)
-			gameList.memberAndPoints.map((memberAndPoint)=> {
+			gameList.memberAndPoints.forEach((memberAndPoint)=> {
 				colorArray = [...colorArray, memberAndPoint.color];
 				setColor(colorArray);
 			})
@@ -41,24 +48,24 @@ const SingleHistory = () => {
 		dispatch(gameListRemoveAction( {
 			id: id,
 		}));
-		setIsShowModal(false)
+		setIsShowModal(false);
 		setIsRemoved(true);
-	}
+	};
 
 	const handleEdit = (id) => {
 		history.push('/edit/'+id);
-	}
+	};
 
 	const handleConfirm = () => {
-		setIsShowModal(false)
-		setIsRemoved(false)
+		setIsShowModal(false);
+		setIsRemoved(false);
 		history.push('/history');
-	}
+	};
 
 	const handleClose = () => {
 		setIsRemoved(false);
 		history.push('/history');
-	}
+	};
 
 	return (
 		<>
@@ -80,7 +87,7 @@ const SingleHistory = () => {
 							</div>	
 						))}
 						</>
-							}
+						}
 						<p className="gameTotalTime">Total Time: {gameList.time}</p>
 						<p className="gameComment">Comment: {gameList.comment}</p>
 						<p className="gameCreatedDate">Created Date: {gameList.createdDate}</p>
@@ -108,7 +115,6 @@ const SingleHistory = () => {
 				</Modal>
 
 				< Modal isOpen={isRemoved}　
-						// onRequestClose={() => setIsRemoved(false)}
 						onRequestClose={handleClose}
 						overlayClassName={{
 							base: "overlay-base",

@@ -7,11 +7,11 @@ const History = () => {
 
 	const selector = useSelector( (state) => state);
 	const gameLists = selector.gameList.gameLists;
-	const history = useHistory()
+	const history = useHistory();
 	
 	const handleClick = (id) => {
 		history.push('/history/'+id)
-	}
+	};
 
 	return (
 		<>

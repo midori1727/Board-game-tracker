@@ -46,7 +46,6 @@ h1.title {
 
 /* Modal CSS */
 
-
 .overlay-base {
 	padding: 1rem;
 	position: fixed;
@@ -99,7 +98,6 @@ h1.title {
   .content-after {
 	width: 70%;
 	height: 40%;
-	/* background-color: rgba(250, 190, 190, 0.8); */
 	background: -webkit-linear-gradient(90deg, #EC6F66 10%, #F3A183 90%); /* Chrome 10+, Saf5.1+ */
 	background:    -moz-linear-gradient(90deg, #EC6F66 10%, #F3A183 90%); /* FF3.6+ */
 	background:     -ms-linear-gradient(90deg, #EC6F66 10%, #F3A183 90%); /* IE10 */

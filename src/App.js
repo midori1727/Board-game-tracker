@@ -11,7 +11,6 @@ function App() {
 	return (
 		<Router>
 			<div className="App">
-			{/* <main className="App-main"> */}
 				<Switch>
 					<Route path="/create" component={CreateNewGame} />
 					<Route path="/edit/:id" component={EditGame} />
@@ -19,7 +18,6 @@ function App() {
 					<Route path="/history" component={History} />
 					<Route exact path="/" component={FrontPage} />
 				</Switch>
-			{/* </main> */}
 			</div>
 		</Router>
     );
