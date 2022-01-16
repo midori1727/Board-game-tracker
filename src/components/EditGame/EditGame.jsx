@@ -27,6 +27,14 @@ const EditGame = () => {
 	let newMemberAndPointsList = [];
 	let colorArray = [];
 
+	// validation
+	const [ titleIsValid, setTitleIsValid ] = useState(true);
+	const [ titleErrorMessage, setTitleErrorMessage ] = useState('');
+	const [ timeIsValid, setTimeIsValid ] = useState(true);
+	const [ timeErrorMessage, setTimeErrorMessage ] = useState('');
+	// const [ pointsIsValid, setPointsIsValid ] = useState(true);
+
+
 	useEffect (() => {
 		selectedHistory.forEach(game => {
 			setTitle(game.title);
@@ -43,8 +51,14 @@ const EditGame = () => {
 		})
 	},[])
 
+	console.log(memberAndPoints);
+	memberAndPoints.forEach((memberAndPoint) => {
+			console.log(memberAndPoint.points);
+	})
+
 	const handleChangeTitle = (e) => {
 		setTitle(e.target.value);
+		setTitleIsValid(true);
 	};
 
 	const handleChangeScenario = (e) => {
@@ -58,10 +72,13 @@ const EditGame = () => {
 		pointsAndMembersArray[index].points = editIndexPoints;
 		if(editIndexPoints.match(/[^0-9]+/)) return
 		setMemberAndPoints(pointsAndMembersArray);
+		// setPointsIsValid(true);
+		console.log(editIndexPoints);
 	};
 
 	const handleChangeTime = (e) => {
 		setTime(e.target.value);
+		setTimeIsValid(true);
 	};
 
 	const handleChangeComment = (e) => {
@@ -74,11 +91,65 @@ const EditGame = () => {
 
 	const handleSubmit = (id) => {
 
+		// memberAndPoints.forEach((memberAndPoint) => {
+		// 	if(memberAndPoint.points === '')
+		// 	return 
+		// })
+		// if(title === '' || scenario === '' || time === '' || comment === '' || createdDate === '') return;
+		
+		
+
+
+		// const validationPoints = memberAndPoints.forEach((memberAndPoint) => {
+		// 	return memberAndPoint.points
+		// })
+
+
+		// console.log(validationPoints);
+				
+
+		// memberAndPoints.forEach((memberAndPoint) => {
+		// 	if(memberAndPoint.points === '') {
+		// 		setPointsIsValid(false);
+		// 		setPointsErrorMessage('Please input points');
+		// 		console.log(memberAndPoint.points);
+		// 		return
+		// 	}})
+
+		
+
+		// memberAndPoints.forEach((memberAndPoint) => {
+		// 	if(memberAndPoint.points === ''){
+		// 		console.log('hello');
+		// 	}
+		// })
 		memberAndPoints.forEach((memberAndPoint) => {
-			if(memberAndPoint.points === '')
-			return 
+			console.log(memberAndPoint);
+			if(memberAndPoint.points === ''){
+				console.log('hello');
+				console.log(memberAndPoint);
+				console.log(memberAndPoint.points);
+				return
+			} return
 		})
-		if(title === '' || scenario === '' || time === '' || comment === '' || createdDate === '') return;
+		if( title === '' ) {
+			setTitleIsValid(false);
+			setTitleErrorMessage('Please input title');
+			return
+		}
+		// else if(validationPoints.points === '' ){
+		// 	setMemberAndPointsIsValid(false);
+		// 	setMemberAndPointsErrorMessage('Please add at least one player');
+		// 	return
+		// }
+
+		if(time === '') {
+			setTimeIsValid(false);
+			setTimeErrorMessage('Please input total time');
+			return
+
+		}
+		else {
 
 		dispatch(gameListEditAction( {
 			id: id,
@@ -90,6 +161,10 @@ const EditGame = () => {
 			createdDate: createdDate
 		}));
 		history.push('/history');
+
+		// return
+
+	}
 	}
 
 	return (
@@ -105,6 +180,12 @@ const EditGame = () => {
 						<label>
 							<h2 className="editGameH2">Title:</h2>
 							<input className="editTitle" value={title} onChange={handleChangeTitle}/>
+							{!titleIsValid
+							&&
+							<div className="error-message">
+								{titleErrorMessage}
+							</div>
+							}
 						</label>
 
 						<label>
@@ -123,6 +204,12 @@ const EditGame = () => {
 									<input value={memberAndPoints[index].points}  onChange={(e) => handleChangePoints(e,index)} />
 									</>
 									}
+									{memberAndPoints.length >= 1 && memberAndPoints[index].points === ''
+									&&
+									<div className="error-message points-error-message">
+										Please input points
+									</div>
+									}
 								</div>	
 							))}
 							</ul>
@@ -131,6 +218,12 @@ const EditGame = () => {
 						<label>
 							<h2 className="editGameH2">Total Time:</h2>
 							<input type='time' value={time} onChange={handleChangeTime}/>
+							{!timeIsValid
+							&&
+							<div className="error-message">
+								{timeErrorMessage}
+							</div>
+							}
 						</label>
 
 						<label>
