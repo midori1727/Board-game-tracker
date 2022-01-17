@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/Board-game-tracker/static/css/main.6898af44.chunk.css",
+    "main.js": "/Board-game-tracker/static/js/main.b2f42f40.chunk.js",
+    "main.js.map": "/Board-game-tracker/static/js/main.b2f42f40.chunk.js.map",
+    "runtime-main.js": "/Board-game-tracker/static/js/runtime-main.a8f8a0e2.js",
+    "runtime-main.js.map": "/Board-game-tracker/static/js/runtime-main.a8f8a0e2.js.map",
+    "static/js/2.b53fc0b6.chunk.js": "/Board-game-tracker/static/js/2.b53fc0b6.chunk.js",
+    "static/js/2.b53fc0b6.chunk.js.map": "/Board-game-tracker/static/js/2.b53fc0b6.chunk.js.map",
+    "static/js/3.fbbd0691.chunk.js": "/Board-game-tracker/static/js/3.fbbd0691.chunk.js",
+    "static/js/3.fbbd0691.chunk.js.map": "/Board-game-tracker/static/js/3.fbbd0691.chunk.js.map",
+    "index.html": "/Board-game-tracker/index.html",
+    "static/css/main.6898af44.chunk.css.map": "/Board-game-tracker/static/css/main.6898af44.chunk.css.map",
+    "static/js/2.b53fc0b6.chunk.js.LICENSE.txt": "/Board-game-tracker/static/js/2.b53fc0b6.chunk.js.LICENSE.txt",
+    "static/media/frontPageImg.c25e757f.svg": "/Board-game-tracker/static/media/frontPageImg.c25e757f.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a8f8a0e2.js",
+    "static/js/2.b53fc0b6.chunk.js",
+    "static/css/main.6898af44.chunk.css",
+    "static/js/main.b2f42f40.chunk.js"
+  ]
+}
