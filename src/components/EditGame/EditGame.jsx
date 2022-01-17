@@ -32,8 +32,6 @@ const EditGame = () => {
 	const [ titleErrorMessage, setTitleErrorMessage ] = useState('');
 	const [ timeIsValid, setTimeIsValid ] = useState(true);
 	const [ timeErrorMessage, setTimeErrorMessage ] = useState('');
-	// const [ pointsIsValid, setPointsIsValid ] = useState(true);
-
 
 	useEffect (() => {
 		selectedHistory.forEach(game => {
@@ -51,11 +49,6 @@ const EditGame = () => {
 		})
 	},[])
 
-	console.log(memberAndPoints);
-	memberAndPoints.forEach((memberAndPoint) => {
-			console.log(memberAndPoint.points);
-	})
-
 	const handleChangeTitle = (e) => {
 		setTitle(e.target.value);
 		setTitleIsValid(true);
@@ -72,8 +65,6 @@ const EditGame = () => {
 		pointsAndMembersArray[index].points = editIndexPoints;
 		if(editIndexPoints.match(/[^0-9]+/)) return
 		setMemberAndPoints(pointsAndMembersArray);
-		// setPointsIsValid(true);
-		console.log(editIndexPoints);
 	};
 
 	const handleChangeTime = (e) => {
@@ -91,63 +82,25 @@ const EditGame = () => {
 
 	const handleSubmit = (id) => {
 
-		// memberAndPoints.forEach((memberAndPoint) => {
-		// 	if(memberAndPoint.points === '')
-		// 	return 
-		// })
-		// if(title === '' || scenario === '' || time === '' || comment === '' || createdDate === '') return;
-		
-		
-
-
-		// const validationPoints = memberAndPoints.forEach((memberAndPoint) => {
-		// 	return memberAndPoint.points
-		// })
-
-
-		// console.log(validationPoints);
-				
-
-		// memberAndPoints.forEach((memberAndPoint) => {
-		// 	if(memberAndPoint.points === '') {
-		// 		setPointsIsValid(false);
-		// 		setPointsErrorMessage('Please input points');
-		// 		console.log(memberAndPoint.points);
-		// 		return
-		// 	}})
-
-		
-
-		// memberAndPoints.forEach((memberAndPoint) => {
-		// 	if(memberAndPoint.points === ''){
-		// 		console.log('hello');
-		// 	}
-		// })
-		memberAndPoints.forEach((memberAndPoint) => {
-			console.log(memberAndPoint);
-			if(memberAndPoint.points === ''){
-				console.log('hello');
-				console.log(memberAndPoint);
-				console.log(memberAndPoint.points);
-				return
-			} return
+		const pointsArray = 
+		memberAndPoints.map((memberAndPoint) => {
+			return memberAndPoint.points;
 		})
-		if( title === '' ) {
+
+		const checkPointsSubmit = pointsArray.includes('');
+
+		if(checkPointsSubmit) {
+			return;
+		}
+		if(!title) {
 			setTitleIsValid(false);
 			setTitleErrorMessage('Please input title');
-			return
+			return;
 		}
-		// else if(validationPoints.points === '' ){
-		// 	setMemberAndPointsIsValid(false);
-		// 	setMemberAndPointsErrorMessage('Please add at least one player');
-		// 	return
-		// }
-
-		if(time === '') {
+		if(!time) {
 			setTimeIsValid(false);
 			setTimeErrorMessage('Please input total time');
-			return
-
+			return;
 		}
 		else {
 
@@ -161,9 +114,6 @@ const EditGame = () => {
 			createdDate: createdDate
 		}));
 		history.push('/history');
-
-		// return
-
 	}
 	}
 

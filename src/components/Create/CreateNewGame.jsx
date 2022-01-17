@@ -40,7 +40,7 @@ const CreateNewGame = () => {
 		let day =  ("0"+now.getDate()).slice(-2);
 		const createdDate = `${year}-${month}-${day}`;
 		setCreatedDate(createdDate);
-	},[])
+	},[]);
 
 	const handleChangeTitle = (e) => {
 		setTitle(e.target.value);
@@ -76,18 +76,18 @@ const CreateNewGame = () => {
 	const handleChangeMemberColor = (e, index) => {
 		let pointsAndMembersArray = [...memberAndPoints];
 		let addColor =  pointsAndMembersArray[index].color;
-		addColor = e.target.value
+		addColor = e.target.value;
 		pointsAndMembersArray[index].color = addColor;
 		setMemberAndPoints(pointsAndMembersArray);
 	}
 
 	const addMember = (e) => {
 		e.preventDefault();
-		if(member === '' || points === '') return
+		if(member === '' || points === '') return;
 		if(points.match(/[^0-9]+/)){
 			setPointsIsValid(false);
 			setPointsErrorMessage('Please only use digit');
-			return
+			return;
 		}
 		setMemberAndPoints([...memberAndPoints, { 'name': member, 'points': points, 'color': color}]);
 		setMember('');
@@ -109,29 +109,18 @@ const CreateNewGame = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 	
-		if( title === '' ) {
+		if(!title) {
 			setTitleIsValid(false);
 			setTitleErrorMessage('Please input title');
-			return
+			return;
 		}else if (memberAndPoints.length === 0){
 			setMemberAndPointsIsValid(false);
 			setMemberAndPointsErrorMessage('Please add at least one player');
-			return
-		}else if(time === '') {
+			return;
+		}else if(!time) {
 			setTimeIsValid(false);
 			setTimeErrorMessage('Please input total time');
-			return
-
-		// if(member && points){
-		// 	dispatch(gameListAddAction( {
-		// 		id: id,
-		// 		title: title,
-		// 		scenario: scenario,
-		// 		memberAndPoints: [...memberAndPoints, { 'name': member, 'points': points, 'color': 'white'}],
-		// 		time: time,
-		// 		comment: comment,
-		// 		createdDate: createdDate
-		// 	}));
+			return;
 		} else {
 			dispatch(gameListAddAction( {
 				id: id,

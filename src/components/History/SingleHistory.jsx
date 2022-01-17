@@ -28,13 +28,6 @@ const SingleHistory = () => {
 	});
 
 	useEffect (() => {
-		// selectedHistory.map(gameList => {
-		// 	setId(gameList.id)
-		// 	gameList.memberAndPoints.map((memberAndPoint)=> {
-		// 		colorArray = [...colorArray, memberAndPoint.color];
-		// 		setColor(colorArray);
-		// 	})
-		// })
 		selectedHistory.forEach(gameList => {
 			setId(gameList.id)
 			gameList.memberAndPoints.forEach((memberAndPoint)=> {
