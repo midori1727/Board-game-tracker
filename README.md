@@ -4,3 +4,6 @@ You can enter the title, scenario, player (color can be changed by the player), 
 This is my first project using redux. I have used actions, reducers and state to facilitate the exchange of data between components.
 
 This application uses responsive design so it works on mobile and tablets.
+
+
+https://midori1727.github.io/Board-game-tracker/
